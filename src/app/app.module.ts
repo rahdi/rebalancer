@@ -5,11 +5,20 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BackgroundComponent } from './shared';
+import {
+  LayoutComponent,
+  PigIconComponent,
+  WeightIconComponent,
+} from './shared';
 import { AuthModule, CoreModule } from './modules';
 
 @NgModule({
-  declarations: [AppComponent, BackgroundComponent],
+  declarations: [
+    AppComponent,
+    LayoutComponent,
+    WeightIconComponent,
+    PigIconComponent,
+  ],
   imports: [
     BrowserModule,
     AuthModule,

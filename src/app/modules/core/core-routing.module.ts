@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Path } from 'src/app/shared';
+import { Path } from 'shared';
 import {
   AssetGroupComponent,
   DashboardComponent,
