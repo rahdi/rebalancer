@@ -6,11 +6,14 @@ import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BackgroundComponent } from './shared';
+import { AuthModule, CoreModule } from './modules';
 
 @NgModule({
   declarations: [AppComponent, BackgroundComponent],
   imports: [
     BrowserModule,
+    AuthModule,
+    CoreModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
