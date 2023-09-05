@@ -5,24 +5,16 @@ import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {
-  LayoutComponent,
-  PigIconComponent,
-  WeightIconComponent,
-} from './shared';
 import { AuthModule, CoreModule } from './modules';
+import { SharedModule } from 'shared';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-    WeightIconComponent,
-    PigIconComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AuthModule,
     CoreModule,
+    SharedModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
