@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayoutComponent } from './layout.component';
+import { PigIconComponent, WeightIconComponent } from 'shared/icons';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -8,7 +10,8 @@ describe('LayoutComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LayoutComponent],
+      declarations: [LayoutComponent, WeightIconComponent, PigIconComponent],
+      imports: [RouterTestingModule],
     });
     fixture = TestBed.createComponent(LayoutComponent);
     component = fixture.componentInstance;
