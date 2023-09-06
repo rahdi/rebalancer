@@ -1,13 +1,13 @@
 <div
-  class="bg-gradient-to-br from-sky-300 from-30% to-sky-700 to-80% h-screen w-screen relative -z-30"
+  class="block relative h-screen w-screen bg-gradient-to-br from-sky-300 from-30% to-sky-700 to-80%"
 >
   <!-- top-left shape -->
   <svg
-    width="1920px"
-    height="787px"
+    width="100%"
+    height="calc(100% + 100px)"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="hidden 2xl:block absolute left-0 -top-32 -z-20"
+    class="hidden 2xl:block absolute left-0 -top-32 pointer-events-none"
   >
     <path
       d="M0 0H1920C1822.14 19.6792 1601.51 76.3485 1501.83 145.592C1377.23 232.147 959.056 225.143 793.864 248.158C628.672 271.172 560.236 425.27 523.422 568.861C486.608 712.453 315.28 787 173.687 787H0V0Z"
@@ -34,7 +34,7 @@
     height="70%"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    class="hidden 2xl:block absolute right-0 bottom-0 -z-20"
+    class="hidden 2xl:block absolute right-0 bottom-0 pointer-events-none"
   >
     <path
       d="M1920 787L0 787C97.8564 767.321 318.49 710.651 418.171 641.408C542.773 554.853 960.944 561.857 1126.14 538.842C1291.33 515.828 1359.76 361.73 1396.58 218.139C1433.39 74.5474 1604.72 0 1746.31 0H1920V787Z"
@@ -62,11 +62,10 @@
     [width]="100"
   ></app-icon-weight>
   <app-icon-weight
-    class="hidden md:block 2xl:hidden"
+    class="hidden md:block"
     [height]="155"
     [width]="150"
   ></app-icon-weight>
-  <app-icon-weight class="hidden 2xl:block"></app-icon-weight>
 
   <!-- pig icon -->
   <app-icon-pig
@@ -75,11 +74,12 @@
     [width]="100"
   ></app-icon-pig>
   <app-icon-pig
-    class="hidden md:block 2xl:hidden"
+    class="hidden md:block"
     [height]="156"
     [width]="150"
   ></app-icon-pig>
-  <app-icon-pig class="hidden 2xl:block"></app-icon-pig>
+</div>
 
+<div class="absolute left-0 top-0 h-full w-full z-30">
   <router-outlet></router-outlet>
 </div>

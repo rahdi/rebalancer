@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WelcomeComponent } from './welcome.component';
+import { SharedModule } from 'shared';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
@@ -8,7 +9,8 @@ describe('WelcomeComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [WelcomeComponent]
+      declarations: [WelcomeComponent],
+      imports: [SharedModule],
     });
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;

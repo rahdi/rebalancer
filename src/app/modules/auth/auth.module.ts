@@ -7,6 +7,7 @@ import {
   RegisterComponent,
   WelcomeComponent,
 } from './pages';
+import { SharedModule } from 'shared';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,6 @@ import {
     LoginComponent,
     RegisterComponent,
   ],
-  imports: [CommonModule, AuthRoutingModule],
+  imports: [CommonModule, AuthRoutingModule, SharedModule],
 })
 export class AuthModule {}
