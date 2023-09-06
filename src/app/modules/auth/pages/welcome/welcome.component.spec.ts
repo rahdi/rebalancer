@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WelcomeComponent } from './welcome.component';
 import { SharedModule } from 'shared';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
@@ -10,7 +11,7 @@ describe('WelcomeComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [WelcomeComponent],
-      imports: [SharedModule],
+      imports: [RouterTestingModule],
     });
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
@@ -59,15 +60,15 @@ describe('WelcomeComponent', () => {
     );
   });
 
-  it('should have a button', () => {
+  it('should have a link', () => {
     const nativeElement: HTMLElement = fixture.nativeElement;
-    const button = nativeElement.querySelector('button');
-    expect(button).toBeTruthy();
+    const a = nativeElement.querySelector('a');
+    expect(a).toBeTruthy();
   });
 
-  it('should have a button with text "Start!"', () => {
+  it('should have a link with text "Start!"', () => {
     const nativeElement: HTMLElement = fixture.nativeElement;
-    const button = nativeElement.querySelector('button');
-    expect(button?.innerText).toEqual('Start!');
+    const a = nativeElement.querySelector('a');
+    expect(a?.innerText).toEqual('Start!');
   });
 });

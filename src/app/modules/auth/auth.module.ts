@@ -8,6 +8,7 @@ import {
   WelcomeComponent,
 } from './pages';
 import { SharedModule } from 'shared';
+import { ChooseOptionComponent } from './pages/choose-option/choose-option.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SharedModule } from 'shared';
     WelcomeComponent,
     LoginComponent,
     RegisterComponent,
+    ChooseOptionComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, SharedModule],
 })

@@ -1,18 +1,18 @@
-<div class="h-full w-full flex justify-center items-center">
-  <div class="w-80 flex flex-col items-center">
-    <h1
-      class="text-6xl font-bold text-primary-900"
-      style="font-variant: small-caps"
-    >
-      Rebalancer
-    </h1>
-    <h5 class="text-l font-bold text-primary-900">by Adrian Heidenreich</h5>
+<div class="w-80 flex flex-col items-center">
+  <h1
+    class="text-6xl font-bold text-primary-900"
+    style="font-variant: small-caps"
+  >
+    Rebalancer
+  </h1>
+  <h5 class="text-l font-bold text-primary-900">by Adrian Heidenreich</h5>
 
-    <p class="text-l text-center text-primary-900 mt-8">
-      A simple tool to display your investments portfolio, so you can easily
-      tell, if rebalancing is needed
-    </p>
+  <p class="text-l text-center text-primary-900 mt-8">
+    A simple tool to display your investments portfolio, so you can easily tell,
+    if rebalancing is needed
+  </p>
 
-    <button class="btn btn-primary mt-8">Start!</button>
-  </div>
+  <a class="btn btn-primary mt-8" [routerLink]="'/' + path.ChooseOption"
+    >Start!</a
+  >
 </div>

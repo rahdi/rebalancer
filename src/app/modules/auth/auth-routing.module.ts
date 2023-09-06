@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Path } from 'shared';
 import {
+  ChooseOptionComponent,
   LoginComponent,
   NotFoundComponent,
   RegisterComponent,
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: Path.Welcome,
     component: WelcomeComponent,
+  },
+  {
+    path: Path.ChooseOption,
+    component: ChooseOptionComponent,
   },
   {
     path: Path.Login,
