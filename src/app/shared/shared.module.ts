@@ -1,19 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { LayoutComponent } from './components';
 import { PigIconComponent, WeightIconComponent } from './icons';
-import { RouterModule } from '@angular/router';
-import { StyledButtonComponent } from './components/styled-button/styled-button.component';
 
 @NgModule({
-  declarations: [
-    LayoutComponent,
-    WeightIconComponent,
-    PigIconComponent,
-    StyledButtonComponent,
-  ],
+  declarations: [LayoutComponent, WeightIconComponent, PigIconComponent],
   imports: [CommonModule, RouterModule],
-  exports: [LayoutComponent, StyledButtonComponent],
+  exports: [LayoutComponent],
 })
 export class SharedModule {}
