@@ -1,20 +1,32 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { WelcomeComponent } from './welcome.component';
-import { SharedModule } from 'shared';
-import { RouterTestingModule } from '@angular/router/testing';
+import { AuthModule } from '../../auth.module';
+import { Path } from 'shared';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
   let fixture: ComponentFixture<WelcomeComponent>;
+  let router: Router;
+  let location: Location;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [WelcomeComponent],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule.withRoutes([]), AuthModule],
     });
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+    location = TestBed.inject(Location);
     fixture.detectChanges();
   });
 
@@ -23,52 +35,51 @@ describe('WelcomeComponent', () => {
   });
 
   it('should have a title', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-    const h1 = nativeElement.querySelector('h1');
+    const h1 = fixture.nativeElement.querySelector('h1');
     expect(h1).toBeTruthy();
   });
 
   it('should have a title "Rebalancer"', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-    const h1 = nativeElement.querySelector('h1');
+    const h1 = fixture.nativeElement.querySelector('h1');
     expect(h1?.innerText).toEqual('Rebalancer');
   });
 
   it('should have a subtitle', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-    const h5 = nativeElement.querySelector('h5');
+    const h5 = fixture.nativeElement.querySelector('h5');
     expect(h5).toBeTruthy();
   });
 
   it('should have a subtitle "by Adrian Heidenreich"', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-    const h5 = nativeElement.querySelector('h5');
+    const h5 = fixture.nativeElement.querySelector('h5');
     expect(h5?.innerText).toEqual('by Adrian Heidenreich');
   });
 
   it('should have a paragraph', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-    const p = nativeElement.querySelector('p');
+    const p = fixture.nativeElement.querySelector('p');
     expect(p).toBeTruthy();
   });
 
   it('should have a paragraph with description', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-    const p = nativeElement.querySelector('p');
+    const p = fixture.nativeElement.querySelector('p');
     expect(p?.innerText).toEqual(
       'A simple tool to display your investments portfolio, so you can easily tell, if rebalancing is needed'
     );
   });
 
   it('should have a link', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-    const a = nativeElement.querySelector('a');
+    const a = fixture.nativeElement.querySelector('a');
     expect(a).toBeTruthy();
   });
 
   it('should have a link with text "Start!"', () => {
-    const nativeElement: HTMLElement = fixture.nativeElement;
-    const a = nativeElement.querySelector('a');
+    const a = fixture.nativeElement.querySelector('a');
     expect(a?.innerText).toEqual('Start!');
   });
+
+  it(`should navigate to "/${Path.ChooseOption}" when the link is clicked`, fakeAsync(() => {
+    const link = fixture.nativeElement.querySelector('a');
+    link.click();
+    tick();
+    expect(location.path()).toBe(`/${Path.ChooseOption}`);
+  }));
 });
