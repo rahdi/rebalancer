@@ -1,12 +1,8 @@
 <div class="w-80 flex flex-col items-center">
-  <h1 class="text-6xl font-bold text-primary-900 text-center">404</h1>
+  <h1 class="text-center">404</h1>
 
-  <p class="text-l font-bold text-primary-900 text-center mt-4">
-    You ran out of money. :&#40;
-  </p>
-  <p class="text-l font-bold text-primary-900 text-center">
-    A special dollar tree is here for you.
-  </p>
+  <p class="text-center mt-4">You ran out of money. :&#40;</p>
+  <p class="text-center">A special dollar tree is here for you.</p>
 
   <svg
     width="150"
@@ -46,7 +42,5 @@
     />
   </svg>
 
-  <a class="btn btn-primary mt-8" [routerLink]="'/' + path.Empty"
-    >Go to homepage</a
-  >
+  <a class="btn btn-primary mt-8" [routerLink]="path.Empty">Go to homepage</a>
 </div>

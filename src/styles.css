@@ -4,46 +4,133 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-  font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
-ol, ul {
+
+ol,
+ul {
 	list-style: none;
 }
-blockquote, q {
+
+blockquote,
+q {
 	quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -54,6 +141,50 @@ table {
 @tailwind utilities;
 
 @layer components {
+
+	/* Buttons */
+	.btn {
+		padding-inline: theme('spacing.7');
+		padding-block: theme('spacing.2');
+		border-radius: 5px;
+		transition: all;
+		text-align: center;
+		box-sizing: border-box;
+		border-color: theme('borderColor.primary.900');
+		border-width: theme('borderWidth.DEFAULT');
+		border-style: solid;
+	}
+
+	.btn:hover {
+		cursor: pointer;
+	}
+
+	.btn-primary {
+		background-color: theme('colors.primary.900');
+		color: theme('colors.white');
+		transition-property: theme('transitionProperty.all');
+		transition-duration: theme('transitionDuration.200');
+	}
+
+	.btn-primary:hover {
+		background-color: theme('colors.primary.950');
+		box-shadow: theme('boxShadow.btnPrimary');
+	}
+
+	.btn-secondary {
+		background-color: theme('colors.white');
+		color: theme('colors.primary.900');
+		transition-property: theme('transitionProperty.all');
+		transition-duration: theme('transitionDuration.200');
+	}
+
+	.btn-secondary:hover {
+		background-color: theme('colors.primary.900');
+		box-shadow: theme('boxShadow.btnPrimary');
+		color: theme('colors.white')
+	}
+
+	/* Containers */
 	.card {
 		background-color: theme('colors.white');
 		color: theme('colors.primary.900');
@@ -64,27 +195,41 @@ table {
 		flex-direction: column
 	}
 
-	.btn {
-		padding-inline: theme('spacing.7');
-		padding-block: theme('spacing.2');
+	/* Inputs */
+	input {
+		border-color: theme('borderColor.primary.900');
+		border-width: theme('borderWidth.DEFAULT');
 		border-radius: 5px;
-		transition: all;
-		text-align: center;
+		padding-inline: theme('spacing.5');
+		padding-block: theme('spacing.2');
 	}
 
-	.btn:hover {
-		cursor: pointer;
+	/* Typography */
+	p {
+		color: theme('colors.primary.900')
 	}
 
-	.btn-primary {
-		background-color: theme('colors.primary.900');
-		color: white;
-		transition-property: theme('transitionProperty.all');
-		transition-duration: theme('transitionDuration.200');
+	h1,
+	h2,
+	h3,
+	h4,
+	h5 {
+		color: theme('colors.primary.900');
+		font-weight: theme('fontWeight.bold');
 	}
 
-	.btn-primary:hover {
-		background-color: theme('colors.primary.950');
-		box-shadow: theme('boxShadow.btnPrimary');
+	h1 {
+		font-size: theme('fontSize.6xl');
+		line-height: theme('lineHeight.none');
+		font-variant: small-caps;
 	}
+
+	h4 {
+		font-size: theme('fontSize.2xl');
+	}
+
+	h5 {
+		font-size: theme('fontSize.xl');
+	}
+
 }

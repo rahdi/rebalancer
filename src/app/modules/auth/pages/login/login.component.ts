@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { Path } from 'shared';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
+  path = Path;
 }
