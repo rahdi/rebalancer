@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { SharedModule } from 'shared';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -10,7 +11,7 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, SharedModule],
     });
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;

@@ -4,10 +4,16 @@ import { RouterModule } from '@angular/router';
 
 import { LayoutComponent } from './components';
 import { PigIconComponent, WeightIconComponent } from './icons';
+import { LabeledInputComponent } from './components/labeled-input/labeled-input.component';
 
 @NgModule({
-  declarations: [LayoutComponent, WeightIconComponent, PigIconComponent],
+  declarations: [
+    LayoutComponent,
+    WeightIconComponent,
+    PigIconComponent,
+    LabeledInputComponent,
+  ],
   imports: [CommonModule, RouterModule],
-  exports: [LayoutComponent],
+  exports: [LayoutComponent, LabeledInputComponent],
 })
 export class SharedModule {}
