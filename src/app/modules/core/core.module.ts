@@ -7,6 +7,7 @@ import {
   EditAssetComponent,
   NewAssetComponent,
 } from './pages';
+import { ContentContainerComponent, MenuButtonComponent } from './components';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,8 @@ import {
     NewAssetComponent,
     EditAssetComponent,
     AssetGroupComponent,
+    ContentContainerComponent,
+    MenuButtonComponent,
   ],
   imports: [CommonModule, CoreRoutingModule],
 })
