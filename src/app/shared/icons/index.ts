@@ -1,2 +1,3 @@
-export { WeightIconComponent } from './weight/weight-icon.component';
-export { PigIconComponent } from './pig/pig-icon.component';
+export { WeightIconComponent } from './weight-icon/weight-icon.component';
+export { PigIconComponent } from './pig-icon/pig-icon.component';
+export { CloseIconComponent } from './close-icon/close-icon.component';

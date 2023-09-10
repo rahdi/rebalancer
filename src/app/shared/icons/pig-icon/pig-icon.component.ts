@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-icon-pig',
+  selector: 'app-pig-icon',
   templateUrl: 'pig-icon.component.html',
 })
 export class PigIconComponent {
