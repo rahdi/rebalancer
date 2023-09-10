@@ -2,14 +2,34 @@
   class="card p-0 m-0 rounded-none flex-1 xl:my-10 xl:mx-64 xl:px-5 xl:rounded-2xl"
 >
   <div
-    class="relative flex justify-between xl:justify-center items-center border-b border-b-primary-900 p-2 shadow-container xl:shadow-none"
+    class="relative flex justify-center items-center border-b border-b-primary-900 p-2 shadow-container xl:shadow-none"
   >
-    <div class="block xl:hidden"></div>
     <h4>{{ header }}</h4>
-    <app-menu-button class="block xl:hidden"></app-menu-button>
+    <app-menu-button
+      class="block absolute right-2 xl:hidden"
+      (click)="menuDialog.showModal()"
+    ></app-menu-button>
   </div>
 
   Content container
 </div>
 
-<app-menu-button class="hidden absolute right-0 xl:block"></app-menu-button>
+<app-menu-button
+  class="hidden absolute right-0 xl:block"
+  (click)="menuDialog.showModal()"
+></app-menu-button>
+
+<dialog #menuDialog class="w-80 mr-0 mt-0 rounded-bl-2xl">
+  <div class="flex flex-col items-center p-1 pb-6">
+    <button
+      class="bg-white p-2 transition-colors hover:bg-primary-100 rounded-full self-end"
+      (click)="menuDialog.close()"
+    >
+      <app-close-icon></app-close-icon>
+    </button>
+
+    <p class="w-fit">You are not logged in.</p>
+
+    <a class="btn btn-primary mt-3" [routerLink]="'/' + path.Login">Log in</a>
+  </div>
+</dialog>

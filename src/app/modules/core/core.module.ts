@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { CoreRoutingModule } from './core-routing.module';
 import {
   DashboardComponent,
@@ -8,6 +9,7 @@ import {
   NewAssetComponent,
 } from './pages';
 import { ContentContainerComponent, MenuButtonComponent } from './components';
+import { SharedModule } from 'shared';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,6 @@ import { ContentContainerComponent, MenuButtonComponent } from './components';
     ContentContainerComponent,
     MenuButtonComponent,
   ],
-  imports: [CommonModule, CoreRoutingModule],
+  imports: [CommonModule, CoreRoutingModule, SharedModule],
 })
 export class CoreModule {}

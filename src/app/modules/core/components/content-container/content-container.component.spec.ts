@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ContentContainerComponent } from './content-container.component';
 import { CoreModule } from '../../core.module';
@@ -9,7 +10,7 @@ describe('ContentContainerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CoreModule],
+      imports: [CoreModule, RouterTestingModule],
     });
     fixture = TestBed.createComponent(ContentContainerComponent);
     component = fixture.componentInstance;
