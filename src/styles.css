@@ -205,12 +205,13 @@ router-outlet+* {
 		padding-inline: theme('spacing.7');
 		padding-block: theme('spacing.2');
 		border-radius: 5px;
-		transition: all;
 		text-align: center;
 		box-sizing: border-box;
 		border-color: theme('borderColor.primary.900');
 		border-width: theme('borderWidth.DEFAULT');
 		border-style: solid;
+		transition-property: theme('transitionProperty.all');
+		transition-duration: theme('transitionDuration.200');
 	}
 
 	.btn:hover {
@@ -220,8 +221,6 @@ router-outlet+* {
 	.btn-primary {
 		background-color: theme('colors.primary.900');
 		color: theme('colors.white');
-		transition-property: theme('transitionProperty.all');
-		transition-duration: theme('transitionDuration.200');
 	}
 
 	.btn-primary:hover {
@@ -232,8 +231,6 @@ router-outlet+* {
 	.btn-secondary {
 		background-color: theme('colors.white');
 		color: theme('colors.primary.900');
-		transition-property: theme('transitionProperty.all');
-		transition-duration: theme('transitionDuration.200');
 	}
 
 	.btn-secondary:hover {

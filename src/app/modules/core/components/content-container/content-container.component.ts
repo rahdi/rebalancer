@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Path } from 'shared';
 
 @Component({
@@ -9,4 +9,17 @@ import { Path } from 'shared';
 export class ContentContainerComponent {
   @Input() header = '';
   path = Path;
+
+  @ViewChild('menuDialog') dialog?: ElementRef<HTMLDialogElement>;
+  dialogIsOpen = false;
+
+  openDialog() {
+    this.dialogIsOpen = true;
+    this.dialog?.nativeElement.showModal();
+  }
+
+  closeDialog() {
+    this.dialogIsOpen = false;
+    setTimeout(() => this.dialog?.nativeElement.close(), 150);
+  }
 }
