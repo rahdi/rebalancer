@@ -5,18 +5,12 @@
     class="relative flex justify-center items-center border-b border-b-primary-900 p-2 shadow-container xl:shadow-none"
   >
     <h4>{{ header }}</h4>
-    <app-menu-button
-      class="block absolute right-2 xl:hidden"
-      (click)="openDialog()"
-    ></app-menu-button>
+    <app-menu-button class="block absolute right-2 xl:hidden"></app-menu-button>
   </div>
 
   Content container
 </div>
 
-<app-menu-button
-  class="hidden absolute right-0 xl:block"
-  (click)="openDialog()"
-></app-menu-button>
+<app-menu-button class="hidden absolute right-0 xl:block"></app-menu-button>
 
-<app-menu-dialog [(open)]="dialogIsOpen"></app-menu-dialog>
+<app-menu-dialog></app-menu-dialog>

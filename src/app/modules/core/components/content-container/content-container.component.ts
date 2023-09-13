@@ -6,9 +6,4 @@ import { Component, Input } from '@angular/core';
 })
 export class ContentContainerComponent {
   @Input() header = '';
-  dialogIsOpen = false;
-
-  openDialog() {
-    this.dialogIsOpen = true;
-  }
 }

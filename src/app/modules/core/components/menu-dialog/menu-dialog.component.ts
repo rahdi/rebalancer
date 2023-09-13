@@ -1,13 +1,5 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { MenuService } from '../../services';
 import { Path } from 'shared';
 
 @Component({
@@ -29,19 +21,20 @@ import { Path } from 'shared';
     `,
   ],
 })
-export class MenuDialogComponent implements OnChanges {
+export class MenuDialogComponent {
   @ViewChild('menuDialog') dialog?: ElementRef<HTMLDialogElement>;
-  @Input() open = false;
-  @Output() openChange = new EventEmitter<boolean>();
+  isOpen = false;
   path = Path;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['open'].currentValue === true)
-      this.dialog?.nativeElement.showModal();
+  constructor(private menuService: MenuService) {
+    this.menuService.isOpenUpdated.subscribe((isOpen) => {
+      this.isOpen = isOpen;
+      if (isOpen === true) this.dialog?.nativeElement.showModal();
+    });
   }
 
   closeDialog() {
-    this.openChange.emit(false);
+    this.menuService.closeMenu();
     setTimeout(() => this.dialog?.nativeElement.close(), 150);
   }
 }

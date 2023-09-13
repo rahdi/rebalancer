@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuButtonComponent } from './menu-button.component';
+import { MenuService } from '../../services';
 
 describe('MenuButtonComponent', () => {
   let component: MenuButtonComponent;
@@ -9,6 +10,7 @@ describe('MenuButtonComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MenuButtonComponent],
+      providers: [MenuService],
     });
     fixture = TestBed.createComponent(MenuButtonComponent);
     component = fixture.componentInstance;

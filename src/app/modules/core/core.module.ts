@@ -14,6 +14,7 @@ import {
   MenuDialogComponent,
 } from './components';
 import { SharedModule } from 'shared';
+import { MenuService } from './services';
 
 @NgModule({
   declarations: [
@@ -26,5 +27,6 @@ import { SharedModule } from 'shared';
     MenuDialogComponent,
   ],
   imports: [CommonModule, CoreRoutingModule, SharedModule],
+  providers: [MenuService],
 })
 export class CoreModule {}
