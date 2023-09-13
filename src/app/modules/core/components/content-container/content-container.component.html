@@ -21,8 +21,8 @@
 
 <dialog
   #menuDialog
-  [style.marginRight]="dialogIsOpen ? '0' : '-320px'"
   class="transition-all w-80 mt-0 rounded-bl-2xl overflow-hidden"
+  [ngClass]="{ isOpen: dialogIsOpen }"
 >
   <div class="flex flex-col items-center p-1 pb-6">
     <button
