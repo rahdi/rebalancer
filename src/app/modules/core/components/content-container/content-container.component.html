@@ -19,7 +19,4 @@
   (click)="openDialog()"
 ></app-menu-button>
 
-<app-menu-dialog
-  [isOpen]="dialogIsOpen"
-  (closeEvent)="handleClose()"
-></app-menu-dialog>
+<app-menu-dialog [(open)]="dialogIsOpen"></app-menu-dialog>

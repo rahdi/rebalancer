@@ -31,17 +31,17 @@ import { Path } from 'shared';
 })
 export class MenuDialogComponent implements OnChanges {
   @ViewChild('menuDialog') dialog?: ElementRef<HTMLDialogElement>;
-  @Input() isOpen = false;
-  @Output() closeEvent = new EventEmitter();
+  @Input() open = false;
+  @Output() openChange = new EventEmitter<boolean>();
   path = Path;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['isOpen'].currentValue === true)
+    if (changes['open'].currentValue === true)
       this.dialog?.nativeElement.showModal();
   }
 
   closeDialog() {
-    this.closeEvent.emit();
+    this.openChange.emit(false);
     setTimeout(() => this.dialog?.nativeElement.close(), 150);
   }
 }

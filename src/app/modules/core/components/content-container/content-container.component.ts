@@ -8,10 +8,6 @@ export class ContentContainerComponent {
   @Input() header = '';
   dialogIsOpen = false;
 
-  handleClose() {
-    this.dialogIsOpen = false;
-  }
-
   openDialog() {
     this.dialogIsOpen = true;
   }
