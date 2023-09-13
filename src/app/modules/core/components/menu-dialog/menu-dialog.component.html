@@ -1,0 +1,22 @@
+<dialog
+  #menuDialog
+  class="transition-all w-80 mt-0 rounded-bl-2xl"
+  [ngClass]="{ isOpen }"
+>
+  <div class="flex flex-col items-center p-1 pb-6">
+    <button
+      class="bg-white p-3 transition-colors hover:bg-primary-100 rounded-full self-end"
+      (click)="closeDialog()"
+    >
+      <app-close-icon></app-close-icon>
+    </button>
+
+    <p class="w-fit whitespace-nowrap">You are not logged in.</p>
+
+    <a
+      class="btn btn-primary mt-3 whitespace-nowrap"
+      [routerLink]="'/' + path.Login"
+      >Log in</a
+    >
+  </div>
+</dialog>

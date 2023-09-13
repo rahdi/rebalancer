@@ -8,7 +8,11 @@ import {
   EditAssetComponent,
   NewAssetComponent,
 } from './pages';
-import { ContentContainerComponent, MenuButtonComponent } from './components';
+import {
+  ContentContainerComponent,
+  MenuButtonComponent,
+  MenuDialogComponent,
+} from './components';
 import { SharedModule } from 'shared';
 
 @NgModule({
@@ -19,6 +23,7 @@ import { SharedModule } from 'shared';
     AssetGroupComponent,
     ContentContainerComponent,
     MenuButtonComponent,
+    MenuDialogComponent,
   ],
   imports: [CommonModule, CoreRoutingModule, SharedModule],
 })
