@@ -1,6 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MenuService } from '../../services';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+
 import { Path } from 'shared';
+import { AppState } from 'app.reducer';
+import { coreSelectors, coreActions } from '../../store';
 
 @Component({
   selector: 'app-menu-dialog',
@@ -23,18 +27,18 @@ import { Path } from 'shared';
 })
 export class MenuDialogComponent {
   @ViewChild('menuDialog') dialog?: ElementRef<HTMLDialogElement>;
-  isOpen = false;
+  isOpen$: Observable<boolean>;
   path = Path;
 
-  constructor(private menuService: MenuService) {
-    this.menuService.isOpenUpdated.subscribe((isOpen) => {
-      this.isOpen = isOpen;
-      if (isOpen === true) this.dialog?.nativeElement.showModal();
+  constructor(private store: Store<AppState>) {
+    this.isOpen$ = store.pipe(select(coreSelectors.selectIsMenuOpen));
+    this.isOpen$.subscribe((nextIsOpen) => {
+      if (nextIsOpen === true) this.dialog?.nativeElement.showModal();
     });
   }
 
   closeDialog() {
-    this.menuService.closeMenu();
+    this.store.dispatch(coreActions.closeMenu());
     setTimeout(() => this.dialog?.nativeElement.close(), 150);
   }
 }

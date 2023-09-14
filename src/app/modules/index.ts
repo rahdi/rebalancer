@@ -1,2 +1,3 @@
-export { AuthModule } from './auth/auth.module';
-export { CoreModule } from './core/core.module';
+export { AuthModule } from './auth';
+
+export { CoreModule, coreStore } from './core';

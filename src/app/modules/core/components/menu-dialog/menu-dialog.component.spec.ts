@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuDialogComponent } from './menu-dialog.component';
-import { MenuService } from '../../services';
 import { CoreModule } from '../../core.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
 
 describe('MenuDialogComponent', () => {
   let component: MenuDialogComponent;
@@ -12,8 +12,7 @@ describe('MenuDialogComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MenuDialogComponent],
-      imports: [CoreModule, RouterTestingModule],
-      providers: [MenuService],
+      imports: [CoreModule, RouterTestingModule, StoreModule.forRoot({})],
     });
     fixture = TestBed.createComponent(MenuDialogComponent);
     component = fixture.componentInstance;

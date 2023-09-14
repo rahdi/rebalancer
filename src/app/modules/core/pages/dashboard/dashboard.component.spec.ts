@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { DashboardComponent } from './dashboard.component';
 import { CoreModule } from '../../core.module';
+import { StoreModule } from '@ngrx/store';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -10,7 +11,7 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CoreModule, RouterTestingModule],
+      imports: [CoreModule, RouterTestingModule, StoreModule.forRoot({})],
     });
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;

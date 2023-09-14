@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
-import { MenuService } from '../../services';
+import { Store } from '@ngrx/store';
+
+import { AppState } from 'app.reducer';
+import { coreActions } from '../../store';
 
 @Component({
   selector: 'app-menu-button',
   templateUrl: './menu-button.component.html',
 })
 export class MenuButtonComponent {
-  constructor(private menuService: MenuService) {}
+  constructor(private store: Store<AppState>) {}
 
   openDialog() {
-    this.menuService.openMenu();
+    this.store.dispatch(coreActions.openMenu());
   }
 }

@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { ContentContainerComponent } from './content-container.component';
 import { CoreModule } from '../../core.module';
+import { StoreModule } from '@ngrx/store';
 
 describe('ContentContainerComponent', () => {
   let component: ContentContainerComponent;
@@ -10,7 +11,7 @@ describe('ContentContainerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CoreModule, RouterTestingModule],
+      imports: [CoreModule, RouterTestingModule, StoreModule.forRoot({})],
     });
     fixture = TestBed.createComponent(ContentContainerComponent);
     component = fixture.componentInstance;
