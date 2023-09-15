@@ -1,13 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { DashboardComponent } from './dashboard.component';
 import { CoreModule } from '../../core.module';
 import { StoreModule } from '@ngrx/store';
+import { Location as NgLocation } from '@angular/common';
+import { Router } from '@angular/router';
+import { Path } from 'shared';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
+  let location: NgLocation;
+  let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -15,6 +25,8 @@ describe('DashboardComponent', () => {
     });
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+    location = TestBed.inject(NgLocation);
     fixture.detectChanges();
   });
 
@@ -31,4 +43,19 @@ describe('DashboardComponent', () => {
     const header = fixture.nativeElement.querySelector('.card h4');
     expect(header.innerText).toBe('Your portfolio');
   });
+
+  it('should have a "You don\'t have any assets yet." text', () => {
+    const text = fixture.nativeElement.querySelector('h6');
+    expect(text.innerText).toBe("You don't have any assets yet.");
+  });
+
+  it('should have a "Add new asset!" link', fakeAsync(() => {
+    const link = fixture.nativeElement.querySelector('a');
+    expect(link.innerText).toBe('Add new asset!');
+
+    link.click();
+    tick();
+
+    expect(location.path()).toBe(`/${Path.NewAsset}`);
+  }));
 });

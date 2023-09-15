@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';
-import { Location } from '@angular/common';
+import { Location as NgLocation } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Path, SharedModule } from 'shared';
@@ -15,7 +15,7 @@ import { AuthModule } from 'modules/auth/auth.module';
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
-  let location: Location;
+  let location: NgLocation;
   let router: Router;
 
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('RegisterComponent', () => {
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    location = TestBed.inject(Location);
+    location = TestBed.inject(NgLocation);
     fixture.detectChanges();
   });
 

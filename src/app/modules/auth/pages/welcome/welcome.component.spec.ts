@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Location as NgLocation } from '@angular/common';
 
 import { WelcomeComponent } from './welcome.component';
 import { AuthModule } from '../../auth.module';
@@ -16,7 +16,7 @@ describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
   let fixture: ComponentFixture<WelcomeComponent>;
   let router: Router;
-  let location: Location;
+  let location: NgLocation;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,7 +26,7 @@ describe('WelcomeComponent', () => {
     fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    location = TestBed.inject(Location);
+    location = TestBed.inject(NgLocation);
     fixture.detectChanges();
   });
 

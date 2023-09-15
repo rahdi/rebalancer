@@ -8,14 +8,14 @@ import {
 import { LoginComponent } from './login.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Path, SharedModule } from 'shared';
-import { Location } from '@angular/common';
+import { Location as NgLocation } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthModule } from 'modules/auth/auth.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let location: Location;
+  let location: NgLocation;
   let router: Router;
 
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    location = TestBed.inject(Location);
+    location = TestBed.inject(NgLocation);
     fixture.detectChanges();
   });
 

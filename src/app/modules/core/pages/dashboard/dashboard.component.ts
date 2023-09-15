@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { Path } from 'shared';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-
+  path = Path;
 }

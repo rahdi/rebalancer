@@ -8,14 +8,14 @@ import {
 import { NotFoundComponent } from './not-found.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Location as NgLocation } from '@angular/common';
 import { Path } from 'shared';
 
 describe('NotFoundComponent', () => {
   let component: NotFoundComponent;
   let fixture: ComponentFixture<NotFoundComponent>;
   let router: Router;
-  let location: Location;
+  let location: NgLocation;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,7 +25,7 @@ describe('NotFoundComponent', () => {
     fixture = TestBed.createComponent(NotFoundComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    location = TestBed.inject(Location);
+    location = TestBed.inject(NgLocation);
     fixture.detectChanges();
   });
 

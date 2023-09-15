@@ -5,7 +5,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { Location as NgLocation } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ChooseOptionComponent } from './choose-option.component';
@@ -16,7 +16,7 @@ describe('ChooseOptionComponent', () => {
   let component: ChooseOptionComponent;
   let fixture: ComponentFixture<ChooseOptionComponent>;
   let router: Router;
-  let location: Location;
+  let location: NgLocation;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -26,7 +26,7 @@ describe('ChooseOptionComponent', () => {
     fixture = TestBed.createComponent(ChooseOptionComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    location = TestBed.inject(Location);
+    location = TestBed.inject(NgLocation);
     fixture.detectChanges();
   });
 
