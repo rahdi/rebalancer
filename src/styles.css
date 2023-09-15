@@ -215,8 +215,23 @@ router-outlet+* {
 		transition-duration: theme('transitionDuration.200');
 	}
 
-	.btn:hover {
+	.fab {
+		padding: theme('spacing.4');
+		border-radius: theme('borderRadius.full');
+		transition-property: theme('transitionProperty.all');
+		transition-duration: theme('transitionDuration.200');
+		background-color: theme('colors.primary.900');
+		color: theme('colors.white');
+		box-shadow: theme('dropShadow.fab')
+	}
+
+	.btn:hover,
+	.fab:hover {
 		cursor: pointer;
+	}
+
+	.fab:hover {
+		background-color: theme('colors.primary.950');
 	}
 
 	.btn-primary {
