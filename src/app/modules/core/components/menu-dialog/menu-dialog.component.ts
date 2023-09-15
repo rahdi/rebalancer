@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 import { Path } from 'shared';
 import { AppState } from 'app.reducer';
@@ -25,20 +26,39 @@ import { coreSelectors, coreActions } from '../../store';
     `,
   ],
 })
-export class MenuDialogComponent {
+export class MenuDialogComponent implements OnDestroy {
   @ViewChild('menuDialog') dialog?: ElementRef<HTMLDialogElement>;
   isOpen$: Observable<boolean>;
+  isOpenSub?: Subscription;
   path = Path;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private router: Router) {
     this.isOpen$ = store.pipe(select(coreSelectors.selectIsMenuOpen));
-    this.isOpen$.subscribe((nextIsOpen) => {
+    this.isOpenSub = this.isOpen$.subscribe((nextIsOpen) => {
       if (nextIsOpen === true) this.dialog?.nativeElement.showModal();
     });
   }
 
-  closeDialog() {
+  closeDialog(callback?: Function) {
     this.store.dispatch(coreActions.closeMenu());
-    setTimeout(() => this.dialog?.nativeElement.close(), 150);
+    setTimeout(() => {
+      this.dialog?.nativeElement.close();
+      if (callback) {
+        callback.bind(this)();
+      }
+    }, 150);
+  }
+
+  logIn() {
+    this.router.navigate([`/${Path.Login}`]);
+  }
+
+  onClick($event: Event) {
+    if (($event.target as HTMLDialogElement).classList.contains('isOpen'))
+      this.closeDialog();
+  }
+
+  ngOnDestroy(): void {
+    this.isOpenSub?.unsubscribe();
   }
 }
