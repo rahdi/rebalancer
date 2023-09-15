@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditAssetComponent } from './edit-asset.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CoreModule } from '../../core.module';
+import { StoreModule } from '@ngrx/store';
 
 describe('EditAssetComponent', () => {
   let component: EditAssetComponent;
@@ -8,7 +11,7 @@ describe('EditAssetComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EditAssetComponent]
+      imports: [CoreModule, RouterTestingModule, StoreModule.forRoot({})],
     });
     fixture = TestBed.createComponent(EditAssetComponent);
     component = fixture.componentInstance;

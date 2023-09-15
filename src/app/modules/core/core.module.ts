@@ -12,6 +12,7 @@ import {
   ContentContainerComponent,
   MenuButtonComponent,
   MenuDialogComponent,
+  AssetFormComponent,
 } from './components';
 import { SharedModule } from 'shared';
 
@@ -24,6 +25,7 @@ import { SharedModule } from 'shared';
     ContentContainerComponent,
     MenuButtonComponent,
     MenuDialogComponent,
+    AssetFormComponent,
   ],
   imports: [CommonModule, CoreRoutingModule, SharedModule],
 })

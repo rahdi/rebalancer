@@ -75,7 +75,7 @@ describe('LoginComponent', () => {
     expect(location.path()).toBe(`/${Path.Register}`);
   }));
 
-  it('should display a link to going back', fakeAsync(() => {
+  it('should display a link to go back', fakeAsync(() => {
     const link = fixture.nativeElement.querySelector('.btn-secondary');
     expect(link).toBeTruthy();
     expect(link.innerText).toBe('Go back');
