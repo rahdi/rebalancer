@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { LayoutComponent, LabeledInputComponent } from './components';
+import {
+  LayoutComponent,
+  LabeledInputComponent,
+  LoaderComponent,
+} from './components';
 import {
   PigIconComponent,
   WeightIconComponent,
@@ -16,8 +20,14 @@ import {
     PigIconComponent,
     LabeledInputComponent,
     CloseIconComponent,
+    LoaderComponent,
   ],
   imports: [CommonModule, RouterModule],
-  exports: [LayoutComponent, LabeledInputComponent, CloseIconComponent],
+  exports: [
+    LayoutComponent,
+    LabeledInputComponent,
+    CloseIconComponent,
+    LoaderComponent,
+  ],
 })
 export class SharedModule {}
