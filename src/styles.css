@@ -162,7 +162,7 @@ router-outlet+* {
 
 	/* Inputs */
 	input {
-		border-color: theme('borderColor.primary.900');
+		border-color: theme('colors.primary.900');
 		border-width: theme('borderWidth.DEFAULT');
 		border-radius: 5px;
 		padding-inline: theme('spacing.5');
@@ -208,7 +208,7 @@ router-outlet+* {
 		border-radius: 5px;
 		text-align: center;
 		box-sizing: border-box;
-		border-color: theme('borderColor.primary.900');
+		border-color: theme('colors.primary.900');
 		border-width: theme('borderWidth.DEFAULT');
 		border-style: solid;
 		transition-property: theme('transitionProperty.all');
@@ -276,6 +276,11 @@ router-outlet+* {
 		flex-direction: column
 	}
 
+	/* Inputs */
+	.input-invalid {
+		border-color: theme('colors.warning.text');
+		color: theme('colors.warning.text')
+	}
 }
 
 @layer utilities {

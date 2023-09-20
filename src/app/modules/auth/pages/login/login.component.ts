@@ -29,17 +29,37 @@ export class LoginComponent implements OnDestroy {
     }),
   });
 
-  get email() {
-    return this.loginForm.get('email');
+  get emailErrorMessage() {
+    const control = this.loginForm.get('email');
+    if (!control) return;
+
+    const { invalid, dirty, touched, errors } = control;
+    if (!(invalid && dirty && touched)) return;
+    if (!errors) return;
+
+    if (errors['required']) return 'This field is required.';
+    if (errors['email']) return 'Please provide a valid email.';
+
+    return;
   }
 
-  get password() {
-    return this.loginForm.get('password');
+  get passwordErrorMessage() {
+    const control = this.loginForm.get('password');
+    if (!control) return;
+
+    const { invalid, dirty, touched, errors } = control;
+    if (!(invalid && dirty && touched)) return;
+    if (!errors) return;
+
+    if (errors['required']) return 'This field is required.';
+    if (errors['minlength']) return 'Password must have at least 3 characters.';
+
+    return;
   }
 
   /**
    * 1. Guest user, online - firebase. Option to continue as logged user.
-   * 2. Authenticated user, online - firebase. When some data was saved in local storage, ask user if he wants to
+   * 2. Authenticated user, online - firebase. When some data was saved in local storage, ask user if he wants to log in
    */
 
   private auth: Auth = inject(Auth);

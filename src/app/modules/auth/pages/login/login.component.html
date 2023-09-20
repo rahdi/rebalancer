@@ -7,30 +7,16 @@
         [id]="'login-email'"
         label="Email"
         formControlName="email"
+        [errorMessage]="emailErrorMessage"
       ></app-labeled-input>
-
-      <div
-        *ngIf="email && email.invalid && email.touched && email.dirty"
-        class="text-red-500"
-      >
-        <div *ngIf="email.errors?.['required']">required</div>
-        <div *ngIf="email.errors?.['email']">email</div>
-      </div>
 
       <app-labeled-input
         [id]="'login-password'"
         type="password"
         label="Password"
         formControlName="password"
+        [errorMessage]="passwordErrorMessage"
       ></app-labeled-input>
-    </div>
-
-    <div
-      *ngIf="password && password.invalid && password.dirty && password.touched"
-      class="text-red-500"
-    >
-      <div *ngIf="password.errors?.['required']">required</div>
-      <div *ngIf="password.errors?.['minlength']">min length</div>
     </div>
 
     <div class="flex justify-end mt-6">

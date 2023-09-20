@@ -18,6 +18,9 @@ module.exports = {
           background: "#DDDDDD",
           text: "#999999",
         },
+        warning: {
+          text: "hsl(0,52%,43%)",
+        },
       },
       dropShadow: {
         fab: `0 4px 10px ${primary900}`,

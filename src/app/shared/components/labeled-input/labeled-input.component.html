@@ -5,7 +5,12 @@
     [attr.id]="id"
     [formControl]="control"
     class="flex-1 md:flex-2"
+    [ngClass]="{ 'input-invalid': errorMessage }"
     placeholder="Type here"
     (blur)="onTouched()"
   />
 </div>
+
+<p class="text-warning-text mt-1 text-right text-sm" *ngIf="errorMessage">
+  {{ errorMessage }}
+</p>
