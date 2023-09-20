@@ -9,6 +9,7 @@ import {
 } from './pages';
 import { SharedModule } from 'shared';
 import { ChooseOptionComponent } from './pages/choose-option/choose-option.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,6 @@ import { ChooseOptionComponent } from './pages/choose-option/choose-option.compo
     RegisterComponent,
     ChooseOptionComponent,
   ],
-  imports: [CommonModule, AuthRoutingModule, SharedModule],
+  imports: [CommonModule, AuthRoutingModule, SharedModule, ReactiveFormsModule],
 })
 export class AuthModule {}

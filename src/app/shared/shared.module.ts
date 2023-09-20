@@ -12,6 +12,7 @@ import {
   WeightIconComponent,
   CloseIconComponent,
 } from './icons';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import {
     CloseIconComponent,
     LoaderComponent,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   exports: [
     LayoutComponent,
     LabeledInputComponent,

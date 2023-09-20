@@ -14,6 +14,10 @@ module.exports = {
           900: primary900,
           950: "hsl(206, 88%, 16%)",
         },
+        disabled: {
+          background: "#DDDDDD",
+          text: "#999999",
+        },
       },
       dropShadow: {
         fab: `0 4px 10px ${primary900}`,

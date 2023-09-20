@@ -5,9 +5,10 @@ import {
   signInWithEmailAndPassword,
   user,
 } from '@angular/fire/auth';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+
 import { Path } from 'shared';
-import { environment } from '../../../../../environments/environment';
 
 type OptimizedAuth = Auth & { authStateReady: () => Promise<void> };
 
@@ -17,6 +18,24 @@ type OptimizedAuth = Auth & { authStateReady: () => Promise<void> };
 })
 export class LoginComponent implements OnDestroy {
   path = Path;
+  loginForm = new FormGroup({
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    password: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(3)],
+    }),
+  });
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
 
   /**
    * 1. Guest user, online - firebase. Option to continue as logged user.
@@ -34,11 +53,11 @@ export class LoginComponent implements OnDestroy {
     });
   }
 
-  async signIn() {
+  async onSubmit() {
     const response = await signInWithEmailAndPassword(
       this.auth,
-      environment.login.email,
-      environment.login.password
+      this.loginForm.value.email || '',
+      this.loginForm.value.password || ''
     );
     console.log(response);
   }

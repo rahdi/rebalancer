@@ -215,6 +215,15 @@ router-outlet+* {
 		transition-duration: theme('transitionDuration.200');
 	}
 
+	.btn-disabled {
+		background-color: theme('colors.disabled.background');
+		color: theme('colors.disabled.text')
+	}
+
+	.btn-disabled:hover {
+		cursor: not-allowed
+	}
+
 	.fab {
 		padding: theme('spacing.4');
 		border-radius: theme('borderRadius.full');
@@ -234,22 +243,22 @@ router-outlet+* {
 		background-color: theme('colors.primary.950');
 	}
 
-	.btn-primary {
+	.btn-primary:not([disabled]) {
 		background-color: theme('colors.primary.900');
 		color: theme('colors.white');
 	}
 
-	.btn-primary:hover {
+	.btn-primary:hover:not([disabled]) {
 		background-color: theme('colors.primary.950');
 		box-shadow: theme('boxShadow.btnPrimary');
 	}
 
-	.btn-secondary {
+	.btn-secondary:not([disabled]) {
 		background-color: theme('colors.white');
 		color: theme('colors.primary.900');
 	}
 
-	.btn-secondary:hover {
+	.btn-secondary:hover:not([disabled]) {
 		background-color: theme('colors.primary.900');
 		box-shadow: theme('boxShadow.btnPrimary');
 		color: theme('colors.white')

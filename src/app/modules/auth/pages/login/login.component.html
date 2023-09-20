@@ -1,18 +1,36 @@
 <div class="card gap-5 mx-5 md:px-10">
   <h4 class="text-center">Log in</h4>
 
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="flex flex-col gap-y-3">
       <app-labeled-input
-        [id]="'login-username'"
-        label="Username"
+        [id]="'login-email'"
+        label="Email"
+        formControlName="email"
       ></app-labeled-input>
+
+      <div
+        *ngIf="email && email.invalid && email.touched && email.dirty"
+        class="text-red-500"
+      >
+        <div *ngIf="email.errors?.['required']">required</div>
+        <div *ngIf="email.errors?.['email']">email</div>
+      </div>
 
       <app-labeled-input
         [id]="'login-password'"
         type="password"
         label="Password"
+        formControlName="password"
       ></app-labeled-input>
+    </div>
+
+    <div
+      *ngIf="password && password.invalid && password.dirty && password.touched"
+      class="text-red-500"
+    >
+      <div *ngIf="password.errors?.['required']">required</div>
+      <div *ngIf="password.errors?.['minlength']">min length</div>
     </div>
 
     <div class="flex justify-end mt-6">
@@ -32,17 +50,13 @@
         [routerLink]="'/' + path.ChooseOption"
         >Go back</a
       >
-      <a
-        class="btn btn-primary whitespace-nowrap flex-1"
-        [routerLink]="path.Empty"
-        >Log in</a
-      >
+
       <button
-        class="btn btn-primary whitespace-nowrap flex-1"
-        (click)="signIn()"
-        type="button"
+        class="btn enabled:btn-primary disabled:btn-disabled whitespace-nowrap flex-1"
+        type="submit"
+        [disabled]="!loginForm.valid"
       >
-        Log in to firebase
+        Log in
       </button>
     </div>
   </form>
