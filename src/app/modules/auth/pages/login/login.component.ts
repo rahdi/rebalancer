@@ -6,6 +6,7 @@ import {
   user,
 } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { Path } from 'shared';
@@ -28,6 +29,7 @@ export class LoginComponent implements OnDestroy {
       validators: [Validators.required, Validators.minLength(3)],
     }),
   });
+  isLoading = false;
 
   get emailErrorMessage() {
     const control = this.loginForm.get('email');
@@ -66,7 +68,7 @@ export class LoginComponent implements OnDestroy {
   user$ = user(this.auth as OptimizedAuth);
   userSubscription: Subscription;
 
-  constructor() {
+  constructor(private router: Router) {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
       //handle user state changes here. Note, that user will be null if there is no currently logged in user.
       console.log(aUser);
@@ -74,12 +76,22 @@ export class LoginComponent implements OnDestroy {
   }
 
   async onSubmit() {
-    const response = await signInWithEmailAndPassword(
-      this.auth,
-      this.loginForm.value.email || '',
-      this.loginForm.value.password || ''
-    );
-    console.log(response);
+    this.isLoading = true;
+    try {
+      const response = await signInWithEmailAndPassword(
+        this.auth,
+        this.loginForm.value.email || '',
+        this.loginForm.value.password || ''
+      );
+
+      if (response) {
+        this.isLoading = false;
+        this.router.navigate([Path.Empty]);
+      }
+    } catch (error) {
+      this.isLoading = false;
+      console.error(error);
+    }
   }
 
   ngOnDestroy(): void {

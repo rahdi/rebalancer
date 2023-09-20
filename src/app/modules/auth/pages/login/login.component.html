@@ -1,4 +1,8 @@
-<div class="card gap-5 mx-5 md:px-10">
+<div class="card relative gap-5 mx-5 md:px-10">
+  <div class="blurred-backdrop rounded-2xl" *ngIf="isLoading">
+    <app-loader></app-loader>
+  </div>
+
   <h4 class="text-center">Log in</h4>
 
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
