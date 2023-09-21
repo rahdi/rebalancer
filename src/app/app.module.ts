@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule, CoreModule } from './modules';
 import { SharedModule } from 'shared';
-import { appReducer } from 'app.reducer';
+import { appReducer } from 'app.store';
 import { environment } from '../environments/environment';
 
 @NgModule({

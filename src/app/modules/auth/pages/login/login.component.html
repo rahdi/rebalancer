@@ -1,5 +1,5 @@
 <div class="card relative gap-5 mx-5 md:px-10">
-  <div class="blurred-backdrop rounded-2xl" *ngIf="isLoading">
+  <div class="blurred-backdrop rounded-2xl" *ngIf="isLoading$ | async">
     <app-loader></app-loader>
   </div>
 

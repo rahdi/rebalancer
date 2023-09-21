@@ -7,11 +7,16 @@ import {
 } from '@angular/fire/auth';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from 'app.store';
 import { Subscription } from 'rxjs';
 
-import { Path } from 'shared';
+import { Path, sharedStore } from 'shared';
 
 type OptimizedAuth = Auth & { authStateReady: () => Promise<void> };
+
+const authSelectors = sharedStore.selectors.auth;
+const authActions = sharedStore.actions.auth;
 
 @Component({
   selector: 'app-login',
@@ -29,7 +34,7 @@ export class LoginComponent implements OnDestroy {
       validators: [Validators.required, Validators.minLength(3)],
     }),
   });
-  isLoading = false;
+  isLoading$ = this.store.select(authSelectors.selectIsLoading);
 
   get emailErrorMessage() {
     const control = this.loginForm.get('email');
@@ -68,7 +73,7 @@ export class LoginComponent implements OnDestroy {
   user$ = user(this.auth as OptimizedAuth);
   userSubscription: Subscription;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private store: Store<AppState>) {
     this.userSubscription = this.user$.subscribe((aUser: User | null) => {
       //handle user state changes here. Note, that user will be null if there is no currently logged in user.
       console.log(aUser);
@@ -76,7 +81,8 @@ export class LoginComponent implements OnDestroy {
   }
 
   async onSubmit() {
-    this.isLoading = true;
+    // this.isLoading = true;
+    this.store.dispatch(authActions.setIsLoading({ payload: true }));
     try {
       const response = await signInWithEmailAndPassword(
         this.auth,
@@ -85,11 +91,13 @@ export class LoginComponent implements OnDestroy {
       );
 
       if (response) {
-        this.isLoading = false;
+        // this.isLoading = false;
+        this.store.dispatch(authActions.setIsLoading({ payload: false }));
         this.router.navigate([Path.Empty]);
       }
     } catch (error) {
-      this.isLoading = false;
+      // this.isLoading = false;
+      this.store.dispatch(authActions.setIsLoading({ payload: false }));
       console.error(error);
     }
   }

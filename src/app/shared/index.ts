@@ -6,3 +6,5 @@ export {
   CloseIconComponent,
 } from './icons';
 export { SharedModule } from './shared.module';
+
+export { sharedStore } from './store';

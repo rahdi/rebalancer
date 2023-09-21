@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { AppState } from 'app.reducer';
+import { AppState } from 'app.store';
 import { coreActions } from '../../store';
 
 @Component({

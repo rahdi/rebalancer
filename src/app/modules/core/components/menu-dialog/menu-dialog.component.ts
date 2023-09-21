@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { Router } from '@angular/router';
 
 import { Path } from 'shared';
-import { AppState } from 'app.reducer';
+import { AppState } from 'app.store';
 import { coreSelectors, coreActions } from '../../store';
 
 @Component({
