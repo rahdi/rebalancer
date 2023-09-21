@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 import {
   LayoutComponent,
@@ -23,7 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CloseIconComponent,
     LoaderComponent,
   ],
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   exports: [
     LayoutComponent,
     LabeledInputComponent,
