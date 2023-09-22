@@ -1,28 +1,19 @@
-import { Component, OnDestroy, inject } from '@angular/core';
-import {
-  Auth,
-  User,
-  signInWithEmailAndPassword,
-  user,
-} from '@angular/fire/auth';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'app.store';
-import { Subscription } from 'rxjs';
 
 import { Path, sharedStore } from 'shared';
+import { ApiService } from 'shared/store/api/api.service';
 
-type OptimizedAuth = Auth & { authStateReady: () => Promise<void> };
-
-const authSelectors = sharedStore.selectors.auth;
-const authActions = sharedStore.actions.auth;
+const apiSelectors = sharedStore.selectors.api;
+const apiActions = sharedStore.actions.api;
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent {
   path = Path;
   loginForm = new FormGroup({
     email: new FormControl('', {
@@ -34,10 +25,10 @@ export class LoginComponent implements OnDestroy {
       validators: [Validators.required, Validators.minLength(3)],
     }),
   });
-  isLoading$ = this.store.select(authSelectors.selectIsLoading);
+  isLoading$ = this.store.select(apiSelectors.selectIsLoading);
 
-  get emailErrorMessage() {
-    const control = this.loginForm.get('email');
+  validateInput(name: 'email' | 'password') {
+    const control = this.loginForm.get(name);
     if (!control) return;
 
     const { invalid, dirty, touched, errors } = control;
@@ -46,22 +37,17 @@ export class LoginComponent implements OnDestroy {
 
     if (errors['required']) return 'This field is required.';
     if (errors['email']) return 'Please provide a valid email.';
+    if (errors['minlength']) return 'Password must have at least 3 characters.';
 
     return;
   }
 
+  get emailErrorMessage() {
+    return this.validateInput('email');
+  }
+
   get passwordErrorMessage() {
-    const control = this.loginForm.get('password');
-    if (!control) return;
-
-    const { invalid, dirty, touched, errors } = control;
-    if (!(invalid && dirty && touched)) return;
-    if (!errors) return;
-
-    if (errors['required']) return 'This field is required.';
-    if (errors['minlength']) return 'Password must have at least 3 characters.';
-
-    return;
+    return this.validateInput('password');
   }
 
   /**
@@ -69,40 +55,14 @@ export class LoginComponent implements OnDestroy {
    * 2. Authenticated user, online - firebase. When some data was saved in local storage, ask user if he wants to log in
    */
 
-  private auth: Auth = inject(Auth);
-  user$ = user(this.auth as OptimizedAuth);
-  userSubscription: Subscription;
-
-  constructor(private router: Router, private store: Store<AppState>) {
-    this.userSubscription = this.user$.subscribe((aUser: User | null) => {
-      //handle user state changes here. Note, that user will be null if there is no currently logged in user.
-      console.log(aUser);
-    });
-  }
+  constructor(private store: Store<AppState>, private apiService: ApiService) {}
 
   async onSubmit() {
-    // this.isLoading = true;
-    this.store.dispatch(authActions.setIsLoading({ payload: true }));
-    try {
-      const response = await signInWithEmailAndPassword(
-        this.auth,
-        this.loginForm.value.email || '',
-        this.loginForm.value.password || ''
-      );
-
-      if (response) {
-        // this.isLoading = false;
-        this.store.dispatch(authActions.setIsLoading({ payload: false }));
-        this.router.navigate([Path.Empty]);
-      }
-    } catch (error) {
-      // this.isLoading = false;
-      this.store.dispatch(authActions.setIsLoading({ payload: false }));
-      console.error(error);
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
+    this.store.dispatch(
+      apiActions.login({
+        email: this.loginForm.value.email || '',
+        password: this.loginForm.value.password || '',
+      })
+    );
   }
 }

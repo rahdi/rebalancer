@@ -9,3 +9,5 @@ export const appReducer = {
 export type AppState = {
   core: coreStore.State;
 } & sharedStore.State;
+
+export const appEffects = [...sharedStore.effects];

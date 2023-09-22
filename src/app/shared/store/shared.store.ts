@@ -1,17 +1,19 @@
-import * as authStore from './auth';
+import * as apiStore from './api';
 
 export type State = {
-  auth: authStore.State;
+  api: apiStore.State;
 };
 
 export const reducers = {
-  auth: authStore.authReducer,
+  api: apiStore.apiReducer,
 };
 
 export const actions = {
-  auth: authStore.authActions,
+  api: apiStore.apiActions,
 };
 
 export const selectors = {
-  auth: authStore.authSelectors,
+  api: apiStore.apiSelectors,
 };
+
+export const effects = [apiStore.ApiEffects];
