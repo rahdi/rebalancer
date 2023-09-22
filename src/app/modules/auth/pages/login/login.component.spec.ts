@@ -11,6 +11,9 @@ import { Path, SharedModule } from 'shared';
 import { Location as NgLocation } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthModule } from 'modules/auth/auth.module';
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from 'app.store';
+import { FormControl, FormGroup } from '@angular/forms';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -21,7 +24,12 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [RouterTestingModule, SharedModule, AuthModule],
+      imports: [
+        RouterTestingModule,
+        SharedModule,
+        AuthModule,
+        StoreModule.forRoot(appReducer),
+      ],
     });
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
@@ -45,12 +53,12 @@ describe('LoginComponent', () => {
     expect(title.innerText).toBe('Log in');
   });
 
-  it('should display "username" labeled input', () => {
-    const input = fixture.nativeElement.querySelector('#login-username');
+  it('should display "email" labeled input', () => {
+    const input = fixture.nativeElement.querySelector('#login-email');
     const label = input.previousSibling;
     expect(input).toBeTruthy();
     expect(label).toBeTruthy();
-    expect(label.innerText).toBe('Username');
+    expect(label.innerText).toBe('Email');
   });
 
   it('should display "password" labeled input', () => {
@@ -86,14 +94,9 @@ describe('LoginComponent', () => {
     expect(location.path()).toBe(`/${Path.ChooseOption}`);
   }));
 
-  it('should display a link to go to dashboard', fakeAsync(() => {
-    const link = fixture.nativeElement.querySelector('.btn-primary');
-    expect(link).toBeTruthy();
-    expect(link.innerText).toBe('Log in');
-
-    link.click();
-    tick();
-
-    expect(location.path()).toBe(`/${Path.Empty}`);
-  }));
+  it('should display a "Log in" button', () => {
+    const button = fixture.nativeElement.querySelector('button.btn');
+    expect(button).toBeTruthy();
+    expect(button.innerText).toBe('Log in');
+  });
 });

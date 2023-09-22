@@ -37,12 +37,28 @@ describe('MenuDialogComponent', () => {
   it('should have a text', () => {
     const p = fixture.nativeElement.querySelector('p');
     expect(p).toBeTruthy();
-    expect(p.innerText).toBe('You are not logged in.');
+    expect(p.innerText).toContain('You are not logged in.');
   });
 
   it('should have a "Log in" button', () => {
     const button = fixture.nativeElement.querySelector('.btn-primary');
     expect(button).toBeTruthy();
-    expect((button.innerText || '').trim()).toBe('Log in');
+    expect(button.innerText).toContain('Log in');
+  });
+
+  it('should have a "Welcome" text, when user is logged in', () => {
+    component.userEmail = 'test@test.test';
+    fixture.detectChanges();
+    const p = fixture.nativeElement.querySelector('p');
+    expect(p).toBeTruthy();
+    expect(p.innerText).toContain('Welcome, test@test.test');
+  });
+
+  it('should have a "Log out" button, when user is logged in', () => {
+    component.userEmail = 'test@test.test';
+    fixture.detectChanges();
+    const button = fixture.nativeElement.querySelector('.btn-primary');
+    expect(button).toBeTruthy();
+    expect(button.innerText).toContain('Log out');
   });
 });

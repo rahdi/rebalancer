@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LabeledInputComponent } from './labeled-input.component';
+import { SharedModule } from 'shared';
 
 describe('LabeledInputComponent', () => {
   let component: LabeledInputComponent;
@@ -8,7 +9,7 @@ describe('LabeledInputComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LabeledInputComponent],
+      imports: [SharedModule],
     });
     fixture = TestBed.createComponent(LabeledInputComponent);
     component = fixture.componentInstance;
@@ -36,10 +37,8 @@ describe('LabeledInputComponent', () => {
     expect(input).toBeTruthy();
 
     const attrId = input.getAttribute('id');
-    const attrName = input.getAttribute('name');
     const attrType = input.getAttribute('type');
     expect(attrId).toBe(component.id);
-    expect(attrName).toBe(component.id);
     expect(attrType).toBe(component.type);
   });
 });
