@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'app.store';
 
 import { Path, sharedStore } from 'shared';
-import { ApiService } from 'shared/store/api/api.service';
 
 const apiSelectors = sharedStore.selectors.api;
 const apiActions = sharedStore.actions.api;
@@ -55,11 +54,11 @@ export class LoginComponent {
    * 2. Authenticated user, online - firebase. When some data was saved in local storage, ask user if he wants to log in
    */
 
-  constructor(private store: Store<AppState>, private apiService: ApiService) {}
+  constructor(private store: Store<AppState>) {}
 
   async onSubmit() {
     this.store.dispatch(
-      apiActions.login({
+      apiActions.logIn({
         email: this.loginForm.value.email || '',
         password: this.loginForm.value.password || '',
       })

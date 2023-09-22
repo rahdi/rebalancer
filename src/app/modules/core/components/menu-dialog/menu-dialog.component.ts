@@ -1,11 +1,14 @@
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { Store, select } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 
-import { Path } from 'shared';
+import { Path, sharedStore } from 'shared';
 import { AppState } from 'app.store';
 import { coreSelectors, coreActions } from '../../store';
+
+const apiActions = sharedStore.actions.api;
+const apiSelectors = sharedStore.selectors.api;
 
 @Component({
   selector: 'app-menu-dialog',
@@ -28,15 +31,22 @@ import { coreSelectors, coreActions } from '../../store';
 })
 export class MenuDialogComponent implements OnDestroy {
   @ViewChild('menuDialog') dialog?: ElementRef<HTMLDialogElement>;
-  isOpen$: Observable<boolean>;
-  isOpenSub?: Subscription;
+  isOpen$ = this.store.select(coreSelectors.selectIsMenuOpen);
+  isOpenSub: Subscription;
+  userEmail = '';
+  userSub: Subscription;
   path = Path;
 
   constructor(private store: Store<AppState>, private router: Router) {
-    this.isOpen$ = store.pipe(select(coreSelectors.selectIsMenuOpen));
     this.isOpenSub = this.isOpen$.subscribe((nextIsOpen) => {
       if (nextIsOpen === true) this.dialog?.nativeElement.showModal();
     });
+
+    this.userSub = this.store
+      .select(apiSelectors.selectUser)
+      .subscribe((user) => {
+        this.userEmail = user?.email || '';
+      });
   }
 
   closeDialog(callback?: Function) {
@@ -53,12 +63,17 @@ export class MenuDialogComponent implements OnDestroy {
     this.router.navigate([`/${Path.Login}`]);
   }
 
-  onClick($event: Event) {
+  logOut() {
+    this.store.dispatch(apiActions.logOut());
+  }
+
+  onClose($event: Event) {
     if (($event.target as HTMLDialogElement).classList.contains('isOpen'))
       this.closeDialog();
   }
 
   ngOnDestroy(): void {
-    this.isOpenSub?.unsubscribe();
+    this.isOpenSub.unsubscribe();
+    this.userSub.unsubscribe();
   }
 }

@@ -2,12 +2,16 @@ import { createReducer, on } from '@ngrx/store';
 import {
   authenticationFailed,
   authenticationSuccess,
-  login,
+  logIn,
+  logOut,
 } from './api.actions';
+import { LoginResponse } from './api.types';
+
+type User = LoginResponse;
 
 export interface State {
   isLoading: boolean;
-  user: string | null;
+  user: User | null;
 }
 
 const initialState: State = {
@@ -17,10 +21,15 @@ const initialState: State = {
 
 export const apiReducer = createReducer(
   initialState,
-  on(login, (state) => ({
+  on(logIn, (state) => ({
     ...state,
     isLoading: true,
   })),
-  on(authenticationSuccess, (state) => ({ ...state, isLoading: false })),
+  on(logOut, (state) => ({ ...state, isLoading: false, user: null })),
+  on(authenticationSuccess, (state, action) => ({
+    ...state,
+    isLoading: false,
+    user: action.data,
+  })),
   on(authenticationFailed, (state) => ({ ...state, isLoading: false }))
 );
