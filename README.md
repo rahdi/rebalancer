@@ -1,6 +1,8 @@
 # Rebalancer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.  
+
+See [Figma](https://www.figma.com/file/qNuJ0Wp1kVHg4NB2aZVfW3/Rebalancer?type=design&node-id=1%3A8&mode=design&t=lI4Sphp0nVupF9Rd-1)! :)
 
 ## Development server
 
