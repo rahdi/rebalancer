@@ -12,3 +12,15 @@ export type ErrorResponse = {
   message: string;
   errors: Array<Record<string, string>>;
 };
+
+export type UserData = {
+  token: string;
+  expirationTime: number;
+  userId: string;
+  email: string;
+};
+
+export type AuthenticationSuccessPayload = {
+  userData: UserData;
+  redirect: boolean;
+};

@@ -5,13 +5,11 @@ import {
   logIn,
   logOut,
 } from './api.actions';
-import { LoginResponse } from './api.types';
-
-type User = LoginResponse;
+import { UserData } from './api.types';
 
 export interface State {
   isLoading: boolean;
-  user: User | null;
+  user: UserData | null;
 }
 
 const initialState: State = {
@@ -29,7 +27,7 @@ export const apiReducer = createReducer(
   on(authenticationSuccess, (state, action) => ({
     ...state,
     isLoading: false,
-    user: action.data,
+    user: action.userData,
   })),
   on(authenticationFailed, (state) => ({ ...state, isLoading: false }))
 );
