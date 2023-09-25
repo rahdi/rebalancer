@@ -10,7 +10,7 @@ import {
 
 const routes: Routes = [
   {
-    path: Path.Empty,
+    path: Path.Dashboard,
     component: DashboardComponent,
   },
   {

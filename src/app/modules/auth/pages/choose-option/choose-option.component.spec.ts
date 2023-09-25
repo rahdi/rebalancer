@@ -99,6 +99,6 @@ describe('ChooseOptionComponent', () => {
     (clickedLink as unknown as HTMLAnchorElement).click();
     tick();
 
-    expect(location.path()).toBe(`/${Path.Empty}`);
+    expect(location.path()).toBe(`/${Path.Dashboard}`);
   }));
 });

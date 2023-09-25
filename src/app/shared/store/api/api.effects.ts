@@ -74,7 +74,7 @@ export class ApiEffects {
         ofType(apiActions.authenticationSuccess),
         tap((payload) => {
           if (payload.redirect) {
-            this.router.navigate([`/${Path.Empty}`]);
+            this.router.navigate([`/${Path.Dashboard}`]);
           }
         })
       ),

@@ -1,5 +1,5 @@
 export enum Path {
-  Empty = '',
+  Dashboard = '',
   NotFound = 'not-found',
   Welcome = 'welcome',
   ChooseOption = 'choose-option',

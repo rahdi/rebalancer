@@ -80,7 +80,7 @@ describe('AssetFormComponent', () => {
     link.click();
     tick();
 
-    expect(location.path()).toBe(`/${Path.Empty}`);
+    expect(location.path()).toBe(`/${Path.Dashboard}`);
   }));
 
   it('should display a Confirm button', () => {
