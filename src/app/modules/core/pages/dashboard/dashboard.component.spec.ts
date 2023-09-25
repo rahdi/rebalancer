@@ -8,25 +8,29 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { DashboardComponent } from './dashboard.component';
 import { CoreModule } from '../../core.module';
-import { StoreModule } from '@ngrx/store';
 import { Location as NgLocation } from '@angular/common';
 import { Router } from '@angular/router';
 import { Path } from 'shared';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let location: NgLocation;
   let router: Router;
+  let store: MockStore;
+  const initialState = {};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CoreModule, RouterTestingModule, StoreModule.forRoot({})],
+      imports: [CoreModule, RouterTestingModule],
+      providers: [provideMockStore({ initialState })],
     });
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     location = TestBed.inject(NgLocation);
+    store = TestBed.inject(MockStore);
     fixture.detectChanges();
   });
 
@@ -49,7 +53,9 @@ describe('DashboardComponent', () => {
     expect(text.innerText).toBe("You don't have any assets yet.");
   });
 
-  it('should have a "Add new asset!" link', fakeAsync(() => {
+  it('should have a "Add new asset!" link, that works when user is logged in', fakeAsync(() => {
+    store.setState({ api: { user: {} } });
+
     const link = fixture.nativeElement.querySelector('a');
     expect(link.innerText).toBe('Add new asset!');
 

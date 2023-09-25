@@ -11,21 +11,28 @@ import { Location as NgLocation } from '@angular/common';
 import { Router } from '@angular/router';
 import { CoreModule } from 'modules/core/core.module';
 import { Path } from 'shared';
+import { StoreModule } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { appReducer } from 'app.store';
 
 describe('FabComponent', () => {
   let component: FabComponent;
   let fixture: ComponentFixture<FabComponent>;
   let location: NgLocation;
   let router: Router;
+  let store: MockStore;
+  const initialState = { api: { user: null } };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, CoreModule],
+      providers: [provideMockStore({ initialState })],
     });
     fixture = TestBed.createComponent(FabComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     location = TestBed.inject(NgLocation);
+    store = TestBed.inject(MockStore);
     fixture.detectChanges();
   });
 
@@ -43,6 +50,13 @@ describe('FabComponent', () => {
     const icon = fixture.nativeElement.querySelector('.fab > svg');
     expect(link).toBeTruthy();
     expect(icon).toBeTruthy();
+  }));
+
+  it('should navigate to "new-asset" on click, when user is logged in', fakeAsync(() => {
+    store.setState({ api: { user: {} } });
+
+    const link = fixture.nativeElement.querySelector('a');
+    expect(link).toBeTruthy();
 
     link.click();
     tick();
