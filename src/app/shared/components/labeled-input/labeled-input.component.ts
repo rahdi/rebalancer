@@ -22,7 +22,7 @@ export class LabeledInputComponent implements OnInit, ControlValueAccessor {
   @Input() type: HTMLInputElement['type'] = 'text';
   @Input() errorMessage?: string;
 
-  control!: FormControl;
+  control?: FormControl;
   onTouched() {}
   onChange() {}
 
@@ -31,12 +31,12 @@ export class LabeledInputComponent implements OnInit, ControlValueAccessor {
   }
 
   writeValue(value: never): void {
-    this.control.setValue(value);
+    this.control?.setValue(value);
   }
 
   registerOnChange(handleChange: VoidFunction): void {
     this.onChange = handleChange;
-    this.control.valueChanges.subscribe(handleChange);
+    this.control?.valueChanges.subscribe(handleChange);
   }
 
   registerOnTouched(handleTouched: VoidFunction): void {

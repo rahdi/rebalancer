@@ -1,9 +1,18 @@
 import { Injectable } from '@angular/core';
 import { apiActions } from '.';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  exhaustMap,
+  filter,
+  map,
+  of,
+  take,
+  tap,
+} from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ApiService } from './api.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Path } from 'shared/enums';
 import { LoginResponse, UserData } from './api.types';
 
@@ -59,7 +68,7 @@ export class ApiEffects {
         if (tokenIsValid) {
           return apiActions.authenticationSuccess({
             userData: parsedLocalUser,
-            redirect: true, // TODO: add conditional redirect
+            redirect: false,
           });
         }
 
@@ -76,7 +85,25 @@ export class ApiEffects {
           if (payload.redirect) {
             this.router.navigate([`/${Path.Dashboard}`]);
           }
-        })
+        }),
+        filter((payload) => payload && !payload.redirect),
+        concatMap(() =>
+          this.router.events.pipe(
+            filter((event) => event instanceof NavigationEnd),
+            tap(() => {
+              const authPaths = [
+                Path.Welcome,
+                Path.ChooseOption,
+                Path.Login,
+                Path.Register,
+              ];
+              if (authPaths.some((path) => this.router.url.includes(path))) {
+                this.router.navigate([`/${Path.Dashboard}`]);
+              }
+            }),
+            take(1)
+          )
+        )
       ),
     { dispatch: false }
   );
