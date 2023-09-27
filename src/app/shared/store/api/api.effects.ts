@@ -11,26 +11,32 @@ import {
   tap,
 } from 'rxjs';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ApiService } from './api.service';
 import { NavigationEnd, Router } from '@angular/router';
+
+import { ApiService } from './api.service';
 import { Path } from 'shared/enums';
-import { LoginResponse, UserData } from './api.types';
+import { AuthData, LoginResponse } from './api.types';
+
+// TODO: add error handling
+
+const createExpirationTime = (expiresIn: string | number) =>
+  new Date().getTime() + Number(expiresIn) * 1000;
 
 const createHandleAuthenticationSuccess =
   (redirect: boolean) => (data: LoginResponse) => {
-    const { idToken, expiresIn, email, localId } = data;
+    const { idToken, expiresIn, email, localId, refreshToken } = data;
 
-    const expirationTime = new Date().getTime() + Number(expiresIn) * 1000;
-
-    const userData: UserData = {
-      email,
-      expirationTime,
+    const authData: AuthData = {
+      expirationTime: createExpirationTime(expiresIn),
       token: idToken,
+      refreshToken,
       userId: localId,
     };
-    localStorage.setItem('userData', JSON.stringify(userData));
+    localStorage.setItem('authData', JSON.stringify(authData));
+    localStorage.setItem('email', JSON.stringify(email));
     return apiActions.authenticationSuccess({
-      userData,
+      authData,
+      email,
       redirect,
     });
   };
@@ -40,11 +46,11 @@ export class ApiEffects {
   logIn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(apiActions.logIn),
-      exhaustMap(({ email, password }) =>
-        this.apiService.login(email, password).pipe(
+      exhaustMap((payload) =>
+        this.apiService.login(payload).pipe(
           map(createHandleAuthenticationSuccess(true)),
           catchError((error) =>
-            of(apiActions.authenticationFailed({ error })).pipe(
+            of(apiActions.authenticationFailed(error)).pipe(
               tap((error) => console.log('my error: ', error))
             )
           )
@@ -57,23 +63,55 @@ export class ApiEffects {
     this.actions$.pipe(
       ofType(apiActions.autoLogin),
       map(() => {
-        const localUser = localStorage.getItem('userData');
+        const localAuthData = localStorage.getItem('authData');
+        const localEmail = localStorage.getItem('email');
 
-        if (!localUser) return apiActions.autoLoginFailed();
+        if (!localAuthData || !localEmail) return apiActions.autoLoginFailed();
 
-        const parsedLocalUser = <UserData>JSON.parse(localUser);
+        const parsedLocalAuthData = <AuthData>JSON.parse(localAuthData);
+        const parsedLocalEmail = <string>JSON.parse(localEmail);
+
         const tokenIsValid =
-          new Date().getTime() < parsedLocalUser.expirationTime;
+          new Date().getTime() < parsedLocalAuthData.expirationTime;
 
         if (tokenIsValid) {
           return apiActions.authenticationSuccess({
-            userData: parsedLocalUser,
+            authData: parsedLocalAuthData,
+            email: parsedLocalEmail,
             redirect: false,
           });
         }
 
-        return apiActions.autoLoginFailed();
+        return apiActions.logOut();
       })
+    )
+  );
+
+  refreshToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(apiActions.refreshToken),
+      exhaustMap(({ token }) =>
+        this.apiService.refreshToken(token).pipe(
+          map((response) => {
+            const { expires_in, id_token, refresh_token, user_id } = response;
+
+            const authData: AuthData = {
+              expirationTime: createExpirationTime(expires_in),
+              refreshToken: refresh_token,
+              token: id_token,
+              userId: user_id,
+            };
+
+            localStorage.setItem('authData', JSON.stringify(authData));
+            return apiActions.refreshTokenSuccess({ authData });
+          }),
+          catchError((error) =>
+            of(apiActions.refreshTokenFailed(error)).pipe(
+              tap((error) => console.log('my error: ', error))
+            )
+          )
+        )
+      )
     )
   );
 
@@ -113,7 +151,8 @@ export class ApiEffects {
       this.actions$.pipe(
         ofType(apiActions.logOut),
         tap(() => {
-          localStorage.removeItem('userData');
+          localStorage.removeItem('authData');
+          localStorage.removeItem('email');
           this.router.navigate([`/${Path.Login}`]);
         })
       ),

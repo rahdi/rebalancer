@@ -33,20 +33,13 @@ export class MenuDialogComponent implements OnDestroy {
   @ViewChild('menuDialog') dialog?: ElementRef<HTMLDialogElement>;
   isOpen$ = this.store.select(coreSelectors.selectIsMenuOpen);
   isOpenSub: Subscription;
-  userEmail = '';
-  userSub: Subscription;
+  userEmail = this.store.select(apiSelectors.selectEmail);
   path = Path;
 
   constructor(private store: Store<AppState>, private router: Router) {
     this.isOpenSub = this.isOpen$.subscribe((nextIsOpen) => {
       if (nextIsOpen === true) this.dialog?.nativeElement.showModal();
     });
-
-    this.userSub = this.store
-      .select(apiSelectors.selectUser)
-      .subscribe((user) => {
-        this.userEmail = user?.email || '';
-      });
   }
 
   closeDialog(callback?: Function) {
@@ -74,6 +67,5 @@ export class MenuDialogComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.isOpenSub.unsubscribe();
-    this.userSub.unsubscribe();
   }
 }

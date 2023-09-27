@@ -12,18 +12,18 @@
       <app-close-icon></app-close-icon>
     </button>
 
-    <p class="w-fit whitespace-nowrap" *ngIf="!userEmail">
+    <p class="w-fit whitespace-nowrap" *ngIf="!(userEmail | async)">
       You are not logged in.
     </p>
 
-    <p class="w-fit whitespace-nowrap" *ngIf="userEmail">
-      Welcome, <span class="font-bold">{{ userEmail }}</span>
+    <p class="w-fit whitespace-nowrap" *ngIf="userEmail | async">
+      Welcome, <span class="font-bold">{{ userEmail | async }}</span>
     </p>
 
     <button
       class="btn btn-primary mt-3 whitespace-nowrap"
       (click)="closeDialog(logIn)"
-      *ngIf="!userEmail"
+      *ngIf="!(userEmail | async)"
     >
       Log in
     </button>
@@ -31,7 +31,7 @@
     <button
       class="btn btn-primary mt-3 whitespace-nowrap"
       (click)="closeDialog(logOut)"
-      *ngIf="userEmail"
+      *ngIf="userEmail | async"
     >
       Log out
     </button>

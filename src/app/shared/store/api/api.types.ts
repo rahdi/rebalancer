@@ -1,3 +1,4 @@
+export type LoginPayload = { email: string; password: string };
 export type LoginResponse = {
   idToken: string;
   email: string;
@@ -7,20 +8,33 @@ export type LoginResponse = {
   registered: boolean;
 };
 
-export type ErrorResponse = {
-  code: number;
-  message: string;
-  errors: Array<Record<string, string>>;
+export type RefreshTokenPayload = { token: string };
+export type RefreshTokenResponse = {
+  expires_in: string;
+  token_type: string;
+  refresh_token: string;
+  id_token: string;
+  user_id: string;
+  project_id: string;
 };
 
-export type UserData = {
+export type ErrorResponse = {
+  error: {
+    code: number;
+    message: string;
+    errors: Array<Record<string, string>>;
+  };
+};
+
+export type AuthData = {
   token: string;
+  refreshToken: string;
   expirationTime: number;
   userId: string;
-  email: string;
 };
 
 export type AuthenticationSuccessPayload = {
-  userData: UserData;
+  authData: AuthData;
+  email: string;
   redirect: boolean;
 };

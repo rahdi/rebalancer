@@ -4,17 +4,21 @@ import {
   authenticationSuccess,
   logIn,
   logOut,
+  refreshTokenFailed,
+  refreshTokenSuccess,
 } from './api.actions';
-import { UserData } from './api.types';
+import { AuthData } from './api.types';
 
 export interface State {
   isLoading: boolean;
-  user: UserData | null;
+  authData: AuthData | null;
+  email: string;
 }
 
 const initialState: State = {
   isLoading: false,
-  user: null,
+  authData: null,
+  email: '',
 };
 
 export const apiReducer = createReducer(
@@ -23,11 +27,23 @@ export const apiReducer = createReducer(
     ...state,
     isLoading: true,
   })),
-  on(logOut, (state) => ({ ...state, isLoading: false, user: null })),
+  on(logOut, (state) => ({
+    ...state,
+    isLoading: false,
+    authData: null,
+    email: '',
+  })),
   on(authenticationSuccess, (state, action) => ({
     ...state,
     isLoading: false,
-    user: action.userData,
+    authData: action.authData,
+    email: action.email,
   })),
-  on(authenticationFailed, (state) => ({ ...state, isLoading: false }))
+  on(authenticationFailed, (state) => ({ ...state, isLoading: false })),
+  on(refreshTokenSuccess, (state, action) => ({
+    ...state,
+    isLoading: false,
+    authData: action.authData,
+  })),
+  on(refreshTokenFailed, (state) => ({ ...state, isLoading: false }))
 );
