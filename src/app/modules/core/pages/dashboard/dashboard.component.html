@@ -5,5 +5,10 @@
     <a class="btn btn-primary mt-5" [routerLink]="'/' + path.NewAsset"
       >Add new asset!</a
     >
+
+    <!-- TODO: delete this button -->
+    <button class="btn btn-primary mt-5" (click)="openRefreshTokenDialog()">
+      Open Refresh Token Dialog
+    </button>
   </div>
 </app-content-container>

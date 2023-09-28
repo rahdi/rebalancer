@@ -10,4 +10,4 @@ export type AppState = {
   core: coreStore.State;
 } & sharedStore.State;
 
-export const appEffects = [...sharedStore.effects];
+export const appEffects = [...sharedStore.effects, coreStore.CoreEffects];

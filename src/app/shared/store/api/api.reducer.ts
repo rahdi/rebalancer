@@ -4,6 +4,7 @@ import {
   authenticationSuccess,
   logIn,
   logOut,
+  refreshToken,
   refreshTokenFailed,
   refreshTokenSuccess,
 } from './api.actions';
@@ -40,6 +41,10 @@ export const apiReducer = createReducer(
     email: action.email,
   })),
   on(authenticationFailed, (state) => ({ ...state, isLoading: false })),
+  on(refreshToken, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
   on(refreshTokenSuccess, (state, action) => ({
     ...state,
     isLoading: false,

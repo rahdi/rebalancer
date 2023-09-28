@@ -1,0 +1,23 @@
+<dialog
+  #refreshTokenDialog
+  class="transition-all w-96 rounded-2xl"
+  [ngClass]="{ isOpen }"
+>
+  <div class="p-5 relative">
+    <div class="blurred-backdrop rounded-2xl" *ngIf="isLoading$ | async">
+      <app-loader></app-loader>
+    </div>
+
+    <p class="text-center">Your session is about to expire.</p>
+    <p class="text-center">You will be logged out in 60 s.</p>
+
+    <div class="flex justify-center gap-5 mt-5">
+      <button class="btn btn-secondary whitespace-nowrap" (click)="logOut()">
+        Log out
+      </button>
+      <button class="btn btn-primary whitespace-nowrap" (click)="continue()">
+        Continue session
+      </button>
+    </div>
+  </div>
+</dialog>

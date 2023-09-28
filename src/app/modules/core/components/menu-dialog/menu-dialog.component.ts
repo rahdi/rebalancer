@@ -13,21 +13,7 @@ const apiSelectors = sharedStore.selectors.api;
 @Component({
   selector: 'app-menu-dialog',
   templateUrl: './menu-dialog.component.html',
-  styles: [
-    `
-      dialog {
-        margin-right: -320px;
-        box-shadow: 0 0 0 120vmax rgba(0, 0, 0, 0);
-      }
-      dialog.isOpen {
-        margin-right: 0;
-        box-shadow: 0 0 0 120vmax rgba(0, 0, 0, 0.5);
-      }
-      dialog::backdrop {
-        background-color: unset;
-      }
-    `,
-  ],
+  styleUrls: ['./menu-dialog.component.css'],
 })
 export class MenuDialogComponent implements OnDestroy {
   @ViewChild('menuDialog') dialog?: ElementRef<HTMLDialogElement>;
@@ -38,7 +24,7 @@ export class MenuDialogComponent implements OnDestroy {
 
   constructor(private store: Store<AppState>, private router: Router) {
     this.isOpenSub = this.isOpen$.subscribe((nextIsOpen) => {
-      if (nextIsOpen === true) this.dialog?.nativeElement.showModal();
+      if (nextIsOpen) this.dialog?.nativeElement.showModal();
     });
   }
 

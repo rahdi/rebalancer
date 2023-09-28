@@ -14,6 +14,7 @@ import {
   MenuDialogComponent,
   AssetFormComponent,
   FabComponent,
+  RefreshTokenDialogComponent,
 } from './components';
 import { SharedModule } from 'shared';
 
@@ -28,6 +29,7 @@ import { SharedModule } from 'shared';
     MenuDialogComponent,
     AssetFormComponent,
     FabComponent,
+    RefreshTokenDialogComponent,
   ],
   imports: [CommonModule, CoreRoutingModule, SharedModule],
 })
