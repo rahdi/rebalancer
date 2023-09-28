@@ -54,7 +54,7 @@ describe('DashboardComponent', () => {
   });
 
   it('should have a "Add new asset!" link, that works when user is logged in', fakeAsync(() => {
-    store.setState({ api: { user: {} } });
+    store.setState({ api: { authData: {} } });
 
     const link = fixture.nativeElement.querySelector('a');
     expect(link.innerText).toBe('Add new asset!');

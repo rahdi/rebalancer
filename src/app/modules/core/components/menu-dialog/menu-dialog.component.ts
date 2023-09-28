@@ -52,6 +52,7 @@ export class MenuDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.store.dispatch(coreActions.closeMenu());
     this.isOpenSub.unsubscribe();
   }
 }

@@ -2,8 +2,8 @@ import { coreStore } from 'modules';
 import { sharedStore } from 'shared';
 
 export const appReducer = {
-  core: coreStore.coreReducer,
   ...sharedStore.reducers,
+  core: coreStore.coreReducer,
 };
 
 export type AppState = {

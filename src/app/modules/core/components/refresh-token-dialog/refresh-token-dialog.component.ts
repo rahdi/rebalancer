@@ -69,6 +69,7 @@ export class RefreshTokenDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.store.dispatch(coreActions.closeTokenDialog());
     this.customClearTimeout();
     this.isOpenSub.unsubscribe();
     this.refreshTokenSub.unsubscribe();

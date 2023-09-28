@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 import { AuthModule } from 'modules/auth/auth.module';
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from 'app.store';
-import { FormControl, FormGroup } from '@angular/forms';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

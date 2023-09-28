@@ -11,9 +11,7 @@ import { Location as NgLocation } from '@angular/common';
 import { Router } from '@angular/router';
 import { CoreModule } from 'modules/core/core.module';
 import { Path } from 'shared';
-import { StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { appReducer } from 'app.store';
 
 describe('FabComponent', () => {
   let component: FabComponent;
@@ -21,7 +19,7 @@ describe('FabComponent', () => {
   let location: NgLocation;
   let router: Router;
   let store: MockStore;
-  const initialState = { api: { user: null } };
+  const initialState = { api: { authData: null } };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -53,7 +51,8 @@ describe('FabComponent', () => {
   }));
 
   it('should navigate to "new-asset" on click, when user is logged in', fakeAsync(() => {
-    store.setState({ api: { user: {} } });
+    store.setState({ api: { authData: {} } });
+    fixture.detectChanges();
 
     const link = fixture.nativeElement.querySelector('a');
     expect(link).toBeTruthy();
