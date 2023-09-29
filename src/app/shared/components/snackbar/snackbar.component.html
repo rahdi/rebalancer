@@ -1,0 +1,14 @@
+<div
+  class="absolute bottom-5 right-5 left-5 md:left-auto z-40 flex flex-col gap-3"
+  *ngIf="(snackbars$ | async)?.length"
+>
+  <div
+    @enterAndLeave
+    *ngFor="let snackbar of snackbars$ | async; let i = index"
+    class="snackbar py-4 md:py-3 md:w-80"
+    [ngClass]="{ 'snackbar-warning': snackbar.color === 'warning' }"
+    (click)="removeSnackbar(i)"
+  >
+    <p class="text-white">{{ snackbar.message }}</p>
+  </div>
+</div>

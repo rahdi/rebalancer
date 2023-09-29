@@ -20,10 +20,6 @@ export const refreshTokenSuccess = createAction(
   '[API] Refresh Token Success',
   props<{ authData: AuthData }>()
 );
-export const refreshTokenFailed = createAction(
-  '[API] Refresh Token Failed',
-  props<ErrorResponse>()
-);
 
 export const logOut = createAction('[API] Log Out');
 
@@ -31,7 +27,8 @@ export const authenticationSuccess = createAction(
   '[API] Authentication Success',
   props<AuthenticationSuccessPayload>()
 );
-export const authenticationFailed = createAction(
-  '[API] Authentication Failed',
-  props<ErrorResponse>()
+
+export const apiResponseFailed = createAction(
+  '[API] API Response Failed',
+  props<{ error: ErrorResponse }>()
 );

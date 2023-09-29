@@ -205,7 +205,7 @@ router-outlet+* {
 	.btn {
 		padding-inline: theme('spacing.7');
 		padding-block: theme('spacing.2');
-		border-radius: 5px;
+		border-radius: theme('spacing[1.5]');
 		text-align: center;
 		box-sizing: border-box;
 		border-color: theme('colors.primary.900');
@@ -276,6 +276,22 @@ router-outlet+* {
 		flex-direction: column
 	}
 
+	.snackbar {
+		background-color: theme('colors.primary.900');
+		border-radius: theme('spacing[1.5]');
+		box-shadow: theme('boxShadow.btnPrimary');
+		padding-inline: theme('spacing.4');
+		display: flex;
+		justify-content: space-between;
+		transition-property: theme('transitionProperty.all');
+		transition-duration: theme('transitionDuration.200');
+	}
+
+	.snackbar:hover {
+		cursor: pointer;
+		background-color: theme('colors.primary.950');
+	}
+
 	.blurred-backdrop {
 		position: absolute;
 		width: 100%;
@@ -290,8 +306,8 @@ router-outlet+* {
 
 	/* Inputs */
 	.input-invalid {
-		border-color: theme('colors.warning.text');
-		color: theme('colors.warning.text')
+		border-color: theme('colors.warning.main');
+		color: theme('colors.warning.main')
 	}
 }
 

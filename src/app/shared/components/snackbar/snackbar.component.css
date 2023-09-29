@@ -1,0 +1,8 @@
+.snackbar-warning {
+  background-color: theme('colors.warning.main');
+  box-shadow: theme('boxShadow.btnWarning');
+}
+
+.snackbar-warning:hover {
+  background-color: theme('colors.warning.dark');
+}

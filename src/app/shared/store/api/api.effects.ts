@@ -17,8 +17,6 @@ import { ApiService } from './api.service';
 import { Path } from 'shared/enums';
 import { AuthData, LoginResponse } from './api.types';
 
-// TODO: add error handling
-
 const createExpirationTime = (expiresIn: string | number) =>
   new Date().getTime() + Number(expiresIn) * 1000;
 
@@ -49,11 +47,7 @@ export class ApiEffects {
       exhaustMap((payload) =>
         this.apiService.login(payload).pipe(
           map(createHandleAuthenticationSuccess(true)),
-          catchError((error) =>
-            of(apiActions.authenticationFailed(error)).pipe(
-              tap((error) => console.log('my error: ', error))
-            )
-          )
+          catchError((error) => of(apiActions.apiResponseFailed(error)))
         )
       )
     )
@@ -105,11 +99,7 @@ export class ApiEffects {
             localStorage.setItem('authData', JSON.stringify(authData));
             return apiActions.refreshTokenSuccess({ authData });
           }),
-          catchError((error) =>
-            of(apiActions.refreshTokenFailed(error)).pipe(
-              tap((error) => console.log('my error: ', error))
-            )
-          )
+          catchError((error) => of(apiActions.apiResponseFailed(error)))
         )
       )
     )

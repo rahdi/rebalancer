@@ -49,11 +49,6 @@ export class LoginComponent {
     return this.validateInput('password');
   }
 
-  /**
-   * 1. Guest user, online - firebase. Option to continue as logged user.
-   * 2. Authenticated user, online - firebase. When some data was saved in local storage, ask user if he wants to log in
-   */
-
   constructor(private store: Store<AppState>) {}
 
   async onSubmit() {

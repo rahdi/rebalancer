@@ -1,11 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import {
-  authenticationFailed,
+  apiResponseFailed,
   authenticationSuccess,
   logIn,
   logOut,
   refreshToken,
-  refreshTokenFailed,
   refreshTokenSuccess,
 } from './api.actions';
 import { AuthData } from './api.types';
@@ -40,7 +39,7 @@ export const apiReducer = createReducer(
     authData: action.authData,
     email: action.email,
   })),
-  on(authenticationFailed, (state) => ({ ...state, isLoading: false })),
+  on(apiResponseFailed, (state) => ({ ...state, isLoading: false })),
   on(refreshToken, (state) => ({
     ...state,
     isLoading: true,
@@ -49,6 +48,5 @@ export const apiReducer = createReducer(
     ...state,
     isLoading: false,
     authData: action.authData,
-  })),
-  on(refreshTokenFailed, (state) => ({ ...state, isLoading: false }))
+  }))
 );

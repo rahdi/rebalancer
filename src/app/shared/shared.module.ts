@@ -12,6 +12,7 @@ import {
   CloseIconComponent,
 } from './icons';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     LabeledInputComponent,
     CloseIconComponent,
     LoaderComponent,
+    SnackbarComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
@@ -28,6 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     LabeledInputComponent,
     CloseIconComponent,
     LoaderComponent,
+    SnackbarComponent,
   ],
 })
 export class SharedModule {}

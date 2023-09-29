@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const primary900 = "hsl(206, 88%, 20%)";
+
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
@@ -19,7 +20,8 @@ module.exports = {
           text: "#999999",
         },
         warning: {
-          text: "hsl(0,52%,43%)",
+          main: "hsl(0,52%,43%)",
+          dark: "hsl(0,52%,33%)",
         },
       },
       dropShadow: {
@@ -27,6 +29,7 @@ module.exports = {
       },
       boxShadow: {
         btnPrimary: `0 0 10px ${primary900}`,
+        btnWarning: `0 0 10px hsl(0,52%,28%)`,
         container: `0 0 20px ${primary900}`,
       },
     },
