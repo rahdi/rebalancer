@@ -4,29 +4,34 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-
-import { RegisterComponent } from './register.component';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Location as NgLocation } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+
+import { RegisterComponent } from './register.component';
 import { Path, SharedModule } from 'shared';
-import { AuthModule } from 'modules/auth/auth.module';
+import { AuthModule } from '../../auth.module';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
   let location: NgLocation;
   let router: Router;
+  let store: MockStore;
+  const initialState = {};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [RegisterComponent],
       imports: [RouterTestingModule, SharedModule, AuthModule],
+      providers: [provideMockStore({ initialState })],
     });
     fixture = TestBed.createComponent(RegisterComponent);
-    component = fixture.componentInstance;
     router = TestBed.inject(Router);
     location = TestBed.inject(NgLocation);
+    store = TestBed.inject(MockStore);
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
@@ -45,12 +50,12 @@ describe('RegisterComponent', () => {
     expect(title.innerText).toBe('Register');
   });
 
-  it('should display "username" labeled input', () => {
-    const input = fixture.nativeElement.querySelector('#register-username');
+  it('should display "email" labeled input', () => {
+    const input = fixture.nativeElement.querySelector('#register-email');
     const label = input.previousSibling;
     expect(input).toBeTruthy();
     expect(label).toBeTruthy();
-    expect(label.innerText).toBe('Username');
+    expect(label.innerText).toBe('Email');
   });
 
   it('should display "password" labeled input', () => {
@@ -80,14 +85,9 @@ describe('RegisterComponent', () => {
     expect(location.path()).toBe(`/${Path.ChooseOption}`);
   }));
 
-  it('should display a link to go to dashboard', fakeAsync(() => {
-    const link = fixture.nativeElement.querySelector('.btn-primary');
-    expect(link).toBeTruthy();
-    expect(link.innerText).toBe('Create account!');
-
-    link.click();
-    tick();
-
-    expect(location.path()).toBe(`/${Path.Dashboard}`);
+  it('should display "Create account!" button', fakeAsync(() => {
+    const button = fixture.nativeElement.querySelector('button.btn');
+    expect(button).toBeTruthy();
+    expect(button.innerText).toBe('Create account!');
   }));
 });
