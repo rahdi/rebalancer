@@ -26,7 +26,8 @@ const createExpirationTime = (expiresIn: string | number) =>
 const createHandleAuthenticationSuccess =
   <T extends LoginResponse | RegisterResponse>(redirect: boolean) =>
   (data: T) => {
-    const { idToken, expiresIn, email, localId, refreshToken } = data;
+    const { idToken, expiresIn, localId, refreshToken } = data;
+    let email = data.email || 'Guest';
 
     const authData: AuthData = {
       expirationTime: createExpirationTime(expiresIn),
@@ -62,6 +63,18 @@ export class ApiEffects {
       ofType(apiActions.logIn),
       exhaustMap((payload) =>
         this.apiService.login(payload).pipe(
+          map(createHandleAuthenticationSuccess(true)),
+          catchError((error) => of(apiActions.apiResponseFailed(error)))
+        )
+      )
+    )
+  );
+
+  guestLogIn$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(apiActions.guestLogIn),
+      exhaustMap(() =>
+        this.apiService.guestLogin().pipe(
           map(createHandleAuthenticationSuccess(true)),
           catchError((error) => of(apiActions.apiResponseFailed(error)))
         )

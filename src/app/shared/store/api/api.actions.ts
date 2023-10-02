@@ -8,12 +8,14 @@ import {
   RegisterPayload,
 } from './api.types';
 
-export const logIn = createAction('[API] Log In', props<LoginPayload>());
-
 export const register = createAction(
   '[API] Register',
   props<RegisterPayload>()
 );
+
+export const logIn = createAction('[API] Log In', props<LoginPayload>());
+
+export const guestLogIn = createAction('[API] Guest Log In');
 
 export const autoLogin = createAction('[API] Auto Login');
 export const autoLoginFailed = createAction('[API] Auto Login Failed');

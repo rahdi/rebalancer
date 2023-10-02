@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
   apiResponseFailed,
   authenticationSuccess,
+  guestLogIn,
   logIn,
   logOut,
   refreshToken,
@@ -24,11 +25,15 @@ const initialState: State = {
 
 export const apiReducer = createReducer(
   initialState,
+  on(register, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
   on(logIn, (state) => ({
     ...state,
     isLoading: true,
   })),
-  on(register, (state) => ({
+  on(guestLogIn, (state) => ({
     ...state,
     isLoading: true,
   })),

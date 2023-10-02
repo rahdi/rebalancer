@@ -1,11 +1,15 @@
-<div class="card gap-5 mx-5 max-w-sm md:px-10">
+<div class="card relative gap-5 mx-5 max-w-sm md:px-10">
+  <div class="blurred-backdrop rounded-2xl" *ngIf="isLoading$ | async">
+    <app-loader></app-loader>
+  </div>
+
   <p>You are not logged in. Please choose one of the options below:</p>
 
   <a class="btn btn-primary" [routerLink]="'/' + path.Login">Log in</a>
   <a class="btn btn-primary" [routerLink]="'/' + path.Register"
     >Create a free account</a
   >
-  <a class="btn btn-primary" [routerLink]="'/' + path.Dashboard"
-    >Continue as a guest</a
-  >
+  <button class="btn btn-primary" (click)="guestLogIn()">
+    Continue as a guest
+  </button>
 </div>

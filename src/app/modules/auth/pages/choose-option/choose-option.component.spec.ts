@@ -7,6 +7,7 @@ import {
 import { Router } from '@angular/router';
 import { Location as NgLocation } from '@angular/common';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 
 import { ChooseOptionComponent } from './choose-option.component';
 import { AuthModule } from '../../auth.module';
@@ -17,16 +18,20 @@ describe('ChooseOptionComponent', () => {
   let fixture: ComponentFixture<ChooseOptionComponent>;
   let router: Router;
   let location: NgLocation;
+  let store: MockStore;
+  const initialState = {};
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ChooseOptionComponent],
       imports: [RouterTestingModule.withRoutes([]), AuthModule],
+      providers: [provideMockStore({ initialState })],
     });
     fixture = TestBed.createComponent(ChooseOptionComponent);
-    component = fixture.componentInstance;
     router = TestBed.inject(Router);
     location = TestBed.inject(NgLocation);
+    store = TestBed.inject(MockStore);
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
@@ -46,9 +51,9 @@ describe('ChooseOptionComponent', () => {
     );
   });
 
-  it('should have 3 links', () => {
+  it('should have 2 links', () => {
     const links = fixture.nativeElement.querySelectorAll('a');
-    expect(links.length).toBe(3);
+    expect(links.length).toBe(2);
   });
 
   it('should have a link to login', fakeAsync(() => {
@@ -85,20 +90,9 @@ describe('ChooseOptionComponent', () => {
     expect(location.path()).toBe(`/${Path.Register}`);
   }));
 
-  it('should have a link to continue as a guest', fakeAsync(() => {
-    const links = fixture.nativeElement.querySelectorAll('a');
-
-    let clickedLink: HTMLAnchorElement | null = null;
-    (links as NodeListOf<HTMLAnchorElement>).forEach((link) => {
-      if (link.innerText === 'Continue as a guest') {
-        clickedLink = link;
-      }
-    });
-    expect(clickedLink).toBeTruthy();
-
-    (clickedLink as unknown as HTMLAnchorElement).click();
-    tick();
-
-    expect(location.path()).toBe(`/${Path.Dashboard}`);
+  it('should have "Continue as a guest" button', fakeAsync(() => {
+    const button = fixture.nativeElement.querySelector('button.btn');
+    expect(button).toBeTruthy();
+    expect(button.innerText).toBe('Continue as a guest');
   }));
 });

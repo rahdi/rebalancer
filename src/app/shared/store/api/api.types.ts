@@ -12,6 +12,8 @@ export type LoginResponse = RegisterResponse & {
   registered: boolean;
 };
 
+export type GuestLoginResponse = RegisterResponse;
+
 export type RefreshTokenPayload = { token: string };
 export type RefreshTokenResponse = {
   expires_in: string;
