@@ -21,6 +21,7 @@ export class LabeledInputComponent implements OnInit, ControlValueAccessor {
   @Input() label = '';
   @Input() type: HTMLInputElement['type'] = 'text';
   @Input() errorMessage?: string;
+  @Input() autoComplete?: string;
 
   control?: FormControl;
   onTouched() {}

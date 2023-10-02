@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { CoreRoutingModule } from './core-routing.module';
 import {
@@ -31,6 +32,6 @@ import { SharedModule } from 'shared';
     FabComponent,
     RefreshTokenDialogComponent,
   ],
-  imports: [CommonModule, CoreRoutingModule, SharedModule],
+  imports: [CommonModule, CoreRoutingModule, SharedModule, ReactiveFormsModule],
 })
 export class CoreModule {}
