@@ -6,6 +6,7 @@ import {
   logOut,
   refreshToken,
   refreshTokenSuccess,
+  register,
 } from './api.actions';
 import { AuthData } from './api.types';
 
@@ -24,6 +25,10 @@ const initialState: State = {
 export const apiReducer = createReducer(
   initialState,
   on(logIn, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
+  on(register, (state) => ({
     ...state,
     isLoading: true,
   })),

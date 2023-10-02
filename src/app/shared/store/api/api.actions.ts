@@ -5,9 +5,15 @@ import {
   ErrorResponse,
   LoginPayload,
   RefreshTokenPayload,
+  RegisterPayload,
 } from './api.types';
 
 export const logIn = createAction('[API] Log In', props<LoginPayload>());
+
+export const register = createAction(
+  '[API] Register',
+  props<RegisterPayload>()
+);
 
 export const autoLogin = createAction('[API] Auto Login');
 export const autoLoginFailed = createAction('[API] Auto Login Failed');

@@ -15,13 +15,17 @@ import { NavigationEnd, Router } from '@angular/router';
 
 import { ApiService } from './api.service';
 import { Path } from 'shared/enums';
-import { AuthData, LoginResponse } from './api.types';
+import { AuthData, LoginResponse, RegisterResponse } from './api.types';
+
+const LOCAL_STORAGE_AUTH_DATA = 'authData';
+const LOCAL_STORAGE_EMAIL = 'email';
 
 const createExpirationTime = (expiresIn: string | number) =>
   new Date().getTime() + Number(expiresIn) * 1000;
 
 const createHandleAuthenticationSuccess =
-  (redirect: boolean) => (data: LoginResponse) => {
+  <T extends LoginResponse | RegisterResponse>(redirect: boolean) =>
+  (data: T) => {
     const { idToken, expiresIn, email, localId, refreshToken } = data;
 
     const authData: AuthData = {
@@ -30,8 +34,8 @@ const createHandleAuthenticationSuccess =
       refreshToken,
       userId: localId,
     };
-    localStorage.setItem('authData', JSON.stringify(authData));
-    localStorage.setItem('email', JSON.stringify(email));
+    localStorage.setItem(LOCAL_STORAGE_AUTH_DATA, JSON.stringify(authData));
+    localStorage.setItem(LOCAL_STORAGE_EMAIL, JSON.stringify(email));
     return apiActions.authenticationSuccess({
       authData,
       email,
@@ -41,6 +45,18 @@ const createHandleAuthenticationSuccess =
 
 @Injectable()
 export class ApiEffects {
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(apiActions.register),
+      exhaustMap((payload) =>
+        this.apiService.register(payload).pipe(
+          map(createHandleAuthenticationSuccess(true)),
+          catchError((error) => of(apiActions.apiResponseFailed(error)))
+        )
+      )
+    )
+  );
+
   logIn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(apiActions.logIn),
@@ -57,8 +73,8 @@ export class ApiEffects {
     this.actions$.pipe(
       ofType(apiActions.autoLogin),
       map(() => {
-        const localAuthData = localStorage.getItem('authData');
-        const localEmail = localStorage.getItem('email');
+        const localAuthData = localStorage.getItem(LOCAL_STORAGE_AUTH_DATA);
+        const localEmail = localStorage.getItem(LOCAL_STORAGE_EMAIL);
 
         if (!localAuthData || !localEmail) return apiActions.autoLoginFailed();
 
@@ -96,7 +112,10 @@ export class ApiEffects {
               userId: user_id,
             };
 
-            localStorage.setItem('authData', JSON.stringify(authData));
+            localStorage.setItem(
+              LOCAL_STORAGE_AUTH_DATA,
+              JSON.stringify(authData)
+            );
             return apiActions.refreshTokenSuccess({ authData });
           }),
           catchError((error) => of(apiActions.apiResponseFailed(error)))
@@ -141,8 +160,8 @@ export class ApiEffects {
       this.actions$.pipe(
         ofType(apiActions.logOut),
         tap(() => {
-          localStorage.removeItem('authData');
-          localStorage.removeItem('email');
+          localStorage.removeItem(LOCAL_STORAGE_AUTH_DATA);
+          localStorage.removeItem(LOCAL_STORAGE_EMAIL);
           this.router.navigate([`/${Path.Login}`]);
         })
       ),

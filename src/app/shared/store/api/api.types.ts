@@ -1,10 +1,14 @@
-export type LoginPayload = { email: string; password: string };
-export type LoginResponse = {
+export type RegisterPayload = { email: string; password: string };
+export type RegisterResponse = {
   idToken: string;
   email: string;
   refreshToken: string;
   expiresIn: string;
   localId: string;
+};
+
+export type LoginPayload = RegisterPayload;
+export type LoginResponse = RegisterResponse & {
   registered: boolean;
 };
 

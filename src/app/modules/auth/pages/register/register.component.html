@@ -1,23 +1,33 @@
-<div class="card gap-5 mx-5 md:px-10">
+<div class="card relative gap-5 mx-5 md:px-10">
+  <div class="blurred-backdrop rounded-2xl" *ngIf="isLoading$ | async">
+    <app-loader></app-loader>
+  </div>
+
   <h4 class="text-center">Register</h4>
 
-  <form>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="flex flex-col gap-y-3">
       <app-labeled-input
-        [id]="'register-username'"
-        label="Username"
+        [id]="'register-email'"
+        label="Email"
+        formControlName="email"
+        [errorMessage]="emailErrorMessage"
       ></app-labeled-input>
 
       <app-labeled-input
         [id]="'register-password'"
         type="password"
         label="Password"
+        formControlName="password"
+        [errorMessage]="passwordErrorMessage"
       ></app-labeled-input>
 
       <app-labeled-input
         [id]="'register-confirm'"
         type="password"
         label="Confirm password"
+        formControlName="confirm"
+        [errorMessage]="confirmErrorMessage"
       ></app-labeled-input>
     </div>
 
@@ -27,11 +37,13 @@
         [routerLink]="'/' + path.ChooseOption"
         >Go back</a
       >
-      <a
-        class="btn btn-primary whitespace-nowrap flex-1"
-        [routerLink]="path.Dashboard"
-        >Create account!</a
+      <button
+        class="btn enabled:btn-primary disabled:btn-disabled whitespace-nowrap flex-1"
+        type="submit"
+        [disabled]="!registerForm.valid"
       >
+        Create account!
+      </button>
     </div>
   </form>
 </div>

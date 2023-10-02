@@ -16,6 +16,9 @@ const transformErrorMessage = (error: ErrorResponse) => {
     case 'INVALID_LOGIN_CREDENTIALS':
       message = 'Wrong email or password!';
       break;
+    case 'INVALID_EMAIL':
+      message = 'Please provide a valid email address';
+      break;
     default:
       break;
   }

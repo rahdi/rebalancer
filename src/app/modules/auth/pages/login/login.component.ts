@@ -21,7 +21,7 @@ export class LoginComponent {
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(3)],
+      validators: [Validators.required, Validators.minLength(6)],
     }),
   });
   isLoading$ = this.store.select(apiSelectors.selectIsLoading);
@@ -36,7 +36,7 @@ export class LoginComponent {
 
     if (errors['required']) return 'This field is required.';
     if (errors['email']) return 'Please provide a valid email.';
-    if (errors['minlength']) return 'Password must have at least 3 characters.';
+    if (errors['minlength']) return 'Password must have at least 6 characters.';
 
     return;
   }
