@@ -17,15 +17,19 @@ const apiAuthSelectors = sharedStore.selectors.apiAuth;
 })
 export class MenuDialogComponent implements OnDestroy {
   @ViewChild('menuDialog') dialog?: ElementRef<HTMLDialogElement>;
-  isOpen$ = this.store.select(coreSelectors.selectIsMenuOpen);
+  isOpen = false;
   isOpenSub: Subscription;
   userEmail = this.store.select(apiAuthSelectors.selectEmail);
   path = Path;
 
   constructor(private store: Store<AppState>, private router: Router) {
-    this.isOpenSub = this.isOpen$.subscribe((nextIsOpen) => {
-      if (nextIsOpen) this.dialog?.nativeElement.showModal();
-    });
+    this.isOpenSub = this.store
+      .select(coreSelectors.selectIsMenuOpen)
+      .subscribe((nextIsOpen) => {
+        if (nextIsOpen) this.dialog?.nativeElement.showModal();
+
+        this.isOpen = nextIsOpen;
+      });
   }
 
   closeDialog(callback?: Function) {
@@ -52,7 +56,9 @@ export class MenuDialogComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(coreActions.closeMenu());
+    if (this.isOpen) {
+      this.store.dispatch(coreActions.closeMenu());
+    }
     this.isOpenSub.unsubscribe();
   }
 }
