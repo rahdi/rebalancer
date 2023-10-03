@@ -1,6 +1,21 @@
 <app-content-container header="Your portfolio" class="w-full h-full flex">
-  <div class="flex flex-col flex-1 justify-center items-center pb-20">
+  <div
+    class="flex flex-col flex-1 justify-center items-center pb-20"
+    *ngIf="((assets$ | async) || []).length === 0"
+  >
     <h6>You don't have any assets yet.</h6>
+
+    <a class="btn btn-primary mt-5" [routerLink]="'/' + path.NewAsset"
+      >Add new asset!</a
+    >
+  </div>
+
+  <div *ngIf="((assets$ | async) || []).length > 0">
+    <div *ngFor="let asset of assets$ | async">
+      <p>Name: {{ asset.name }}</p>
+      <p>Group: {{ asset.group }}</p>
+      <p>Amount: {{ asset.amount }}</p>
+    </div>
 
     <a class="btn btn-primary mt-5" [routerLink]="'/' + path.NewAsset"
       >Add new asset!</a

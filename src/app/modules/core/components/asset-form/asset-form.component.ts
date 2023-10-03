@@ -7,6 +7,11 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import { AppState } from 'app.store';
+import { coreActions } from '../../store';
 import { Path } from 'shared';
 
 enum FormFields {
@@ -80,11 +85,14 @@ export class AssetFormComponent {
 
   onSubmit() {
     const asset = {
-      name: this.assetForm.value[FormFields.Name],
-      group: this.assetForm.value[FormFields.Group],
-      amount: this.assetForm.value[FormFields.Amount],
+      name: this.assetForm.value[FormFields.Name] || '',
+      group: this.assetForm.value[FormFields.Group] || '',
+      amount: this.assetForm.value[FormFields.Amount] || 0,
     };
 
-    console.log(asset);
+    this.store.dispatch(coreActions.addAsset({ asset }));
+    this.router.navigate([`/${Path.Dashboard}`]);
   }
+
+  constructor(private store: Store<AppState>, private router: Router) {}
 }
