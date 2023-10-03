@@ -11,8 +11,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'app.store';
-import { coreActions } from '../../store';
-import { Path } from 'shared';
+import { Path, sharedStore } from 'shared';
 
 enum FormFields {
   Name = 'name',
@@ -90,7 +89,7 @@ export class AssetFormComponent {
       amount: this.assetForm.value[FormFields.Amount] || 0,
     };
 
-    this.store.dispatch(coreActions.addAsset({ asset }));
+    this.store.dispatch(sharedStore.actions.api.addAsset({ asset }));
     this.router.navigate([`/${Path.Dashboard}`]);
   }
 

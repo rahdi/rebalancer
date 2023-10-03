@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import {
+  Asset,
   AuthData,
   AuthenticationSuccessPayload,
   ErrorResponse,
@@ -39,4 +40,23 @@ export const authenticationSuccess = createAction(
 export const apiResponseFailed = createAction(
   '[API] API Response Failed',
   props<{ error: ErrorResponse }>()
+);
+
+export const addAsset = createAction(
+  '[Core] Add Asset',
+  props<{ asset: Asset }>()
+);
+export const removeAsset = createAction(
+  '[Core] Remove Asset',
+  props<{ index: number }>()
+);
+
+export const setCurrentAssetId = createAction(
+  '[Core] Set Current Asset ID',
+  props<{ id: number }>()
+);
+
+export const setCurrentAssetGroup = createAction(
+  '[Core] Set Current Asset Group',
+  props<{ group: string }>()
 );
