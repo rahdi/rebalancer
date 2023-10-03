@@ -89,7 +89,7 @@ export class AssetFormComponent {
       amount: this.assetForm.value[FormFields.Amount] || 0,
     };
 
-    this.store.dispatch(sharedStore.actions.api.addAsset({ asset }));
+    this.store.dispatch(sharedStore.actions.apiCore.addAsset({ asset }));
     this.router.navigate([`/${Path.Dashboard}`]);
   }
 

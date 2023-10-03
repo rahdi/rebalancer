@@ -7,15 +7,18 @@ import { sharedStore } from 'shared';
 import { coreActions, coreSelectors } from '.';
 import { AppState } from 'app.store';
 
-const apiActions = sharedStore.actions.api;
-const apiSelectors = sharedStore.selectors.api;
+const apiAuthActions = sharedStore.actions.apiAuth;
+const apiAuthSelectors = sharedStore.selectors.apiAuth;
 
 @Injectable()
 export class CoreEffects {
   openRefreshTokenDialog$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
-        ...[apiActions.authenticationSuccess, apiActions.refreshTokenSuccess]
+        ...[
+          apiAuthActions.authenticationSuccess,
+          apiAuthActions.refreshTokenSuccess,
+        ]
       ),
       map((data) => {
         const {
@@ -25,7 +28,7 @@ export class CoreEffects {
 
         const openDialog$ = timer(expiresIn - 60000).pipe(
           concatLatestFrom(() =>
-            this.store.select(apiSelectors.selectAuthData)
+            this.store.select(apiAuthSelectors.selectAuthData)
           ),
           takeWhile(([_, authData]) => !!authData),
           map(() => coreActions.openTokenDialog())
@@ -36,7 +39,7 @@ export class CoreEffects {
             this.store.select(coreSelectors.selectIsTokenDialogOpen)
           ),
           takeWhile(([_, isTokenDialogOpen]) => isTokenDialogOpen),
-          map(() => apiActions.logOut())
+          map(() => apiAuthActions.logOut())
         );
 
         return { openDialog$, logOut$ };
@@ -47,7 +50,7 @@ export class CoreEffects {
 
   closeRefreshTokenDialog$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(apiActions.refreshTokenSuccess),
+      ofType(apiAuthActions.refreshTokenSuccess),
       map(() => coreActions.closeTokenDialog())
     )
   );

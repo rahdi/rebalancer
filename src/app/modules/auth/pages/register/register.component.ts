@@ -11,8 +11,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'app.store';
 import { Path, sharedStore } from 'shared';
 
-const apiSelectors = sharedStore.selectors.api;
-const apiActions = sharedStore.actions.api;
+const apiAuthSelectors = sharedStore.selectors.apiAuth;
+const apiAuthActions = sharedStore.actions.apiAuth;
 
 const confirmPasswordValidator: ValidatorFn = (
   control: AbstractControl
@@ -49,7 +49,7 @@ export class RegisterComponent {
     },
     { validators: confirmPasswordValidator }
   );
-  isLoading$ = this.store.select(apiSelectors.selectIsLoading);
+  isLoading$ = this.store.select(apiAuthSelectors.selectIsLoading);
 
   validateInput(name: 'email' | 'password') {
     const control = this.registerForm.get(name);
@@ -91,7 +91,7 @@ export class RegisterComponent {
 
   async onSubmit() {
     this.store.dispatch(
-      apiActions.register({
+      apiAuthActions.register({
         email: this.registerForm.value.email || '',
         password: this.registerForm.value.password || '',
       })

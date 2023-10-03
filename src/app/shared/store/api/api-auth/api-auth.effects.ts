@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { apiActions } from '.';
+import { actions } from '.';
 import {
   catchError,
   concatMap,
@@ -13,9 +13,11 @@ import {
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { ApiService } from './api.service';
-import { Path } from 'shared/enums';
-import { AuthData, LoginResponse, RegisterResponse } from './api.types';
+import { ApiAuthService } from './api-auth.service';
+import { Path } from '../../../enums';
+import { AuthData, LoginResponse, RegisterResponse } from './api-auth.types';
+
+// DO NOT IMPORT HERE FROM ANOTHER STORE
 
 const LOCAL_STORAGE_AUTH_DATA = 'authData';
 const LOCAL_STORAGE_EMAIL = 'email';
@@ -37,7 +39,7 @@ const createHandleAuthenticationSuccess =
     };
     localStorage.setItem(LOCAL_STORAGE_AUTH_DATA, JSON.stringify(authData));
     localStorage.setItem(LOCAL_STORAGE_EMAIL, JSON.stringify(email));
-    return apiActions.authenticationSuccess({
+    return actions.authenticationSuccess({
       authData,
       email,
       redirect,
@@ -45,14 +47,14 @@ const createHandleAuthenticationSuccess =
   };
 
 @Injectable()
-export class ApiEffects {
+export class Effects {
   register$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(apiActions.register),
+      ofType(actions.register),
       exhaustMap((payload) =>
-        this.apiService.register(payload).pipe(
+        this.apiAuthService.register(payload).pipe(
           map(createHandleAuthenticationSuccess(true)),
-          catchError((error) => of(apiActions.apiResponseFailed(error)))
+          catchError((error) => of(actions.errorResponse(error)))
         )
       )
     )
@@ -60,11 +62,11 @@ export class ApiEffects {
 
   logIn$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(apiActions.logIn),
+      ofType(actions.logIn),
       exhaustMap((payload) =>
-        this.apiService.login(payload).pipe(
+        this.apiAuthService.login(payload).pipe(
           map(createHandleAuthenticationSuccess(true)),
-          catchError((error) => of(apiActions.apiResponseFailed(error)))
+          catchError((error) => of(actions.errorResponse(error)))
         )
       )
     )
@@ -72,11 +74,11 @@ export class ApiEffects {
 
   guestLogIn$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(apiActions.guestLogIn),
+      ofType(actions.guestLogIn),
       exhaustMap(() =>
-        this.apiService.guestLogin().pipe(
+        this.apiAuthService.guestLogin().pipe(
           map(createHandleAuthenticationSuccess(true)),
-          catchError((error) => of(apiActions.apiResponseFailed(error)))
+          catchError((error) => of(actions.errorResponse(error)))
         )
       )
     )
@@ -84,12 +86,12 @@ export class ApiEffects {
 
   autoLogin$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(apiActions.autoLogin),
+      ofType(actions.autoLogin),
       map(() => {
         const localAuthData = localStorage.getItem(LOCAL_STORAGE_AUTH_DATA);
         const localEmail = localStorage.getItem(LOCAL_STORAGE_EMAIL);
 
-        if (!localAuthData || !localEmail) return apiActions.autoLoginFailed();
+        if (!localAuthData || !localEmail) return actions.autoLoginFailed();
 
         const parsedLocalAuthData = <AuthData>JSON.parse(localAuthData);
         const parsedLocalEmail = <string>JSON.parse(localEmail);
@@ -98,23 +100,23 @@ export class ApiEffects {
           new Date().getTime() < parsedLocalAuthData.expirationTime;
 
         if (tokenIsValid) {
-          return apiActions.authenticationSuccess({
+          return actions.authenticationSuccess({
             authData: parsedLocalAuthData,
             email: parsedLocalEmail,
             redirect: false,
           });
         }
 
-        return apiActions.logOut();
+        return actions.logOut();
       })
     )
   );
 
   refreshToken$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(apiActions.refreshToken),
+      ofType(actions.refreshToken),
       exhaustMap(({ token }) =>
-        this.apiService.refreshToken(token).pipe(
+        this.apiAuthService.refreshToken(token).pipe(
           map((response) => {
             const { expires_in, id_token, refresh_token, user_id } = response;
 
@@ -129,9 +131,9 @@ export class ApiEffects {
               LOCAL_STORAGE_AUTH_DATA,
               JSON.stringify(authData)
             );
-            return apiActions.refreshTokenSuccess({ authData });
+            return actions.refreshTokenSuccess({ authData });
           }),
-          catchError((error) => of(apiActions.apiResponseFailed(error)))
+          catchError((error) => of(actions.errorResponse(error)))
         )
       )
     )
@@ -140,7 +142,7 @@ export class ApiEffects {
   redirect$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(apiActions.authenticationSuccess),
+        ofType(actions.authenticationSuccess),
         tap((payload) => {
           if (payload.redirect) {
             this.router.navigate([`/${Path.Dashboard}`]);
@@ -171,7 +173,7 @@ export class ApiEffects {
   logOut$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(apiActions.logOut),
+        ofType(actions.logOut),
         tap(() => {
           localStorage.removeItem(LOCAL_STORAGE_AUTH_DATA);
           localStorage.removeItem(LOCAL_STORAGE_EMAIL);
@@ -183,7 +185,7 @@ export class ApiEffects {
 
   constructor(
     private actions$: Actions,
-    private apiService: ApiService,
+    private apiAuthService: ApiAuthService,
     private router: Router
   ) {}
 }

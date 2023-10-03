@@ -13,6 +13,6 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(sharedStore.actions.api.autoLogin());
+    this.store.dispatch(sharedStore.actions.apiAuth.autoLogin());
   }
 }

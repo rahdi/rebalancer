@@ -10,7 +10,7 @@ import { Path, sharedStore } from 'shared';
 })
 export class DashboardComponent {
   path = Path;
-  assets$ = this.store.select(sharedStore.selectors.api.selectAssets);
+  assets$ = this.store.select(sharedStore.selectors.apiCore.selectAssets);
 
   constructor(private store: Store<AppState>) {}
 }

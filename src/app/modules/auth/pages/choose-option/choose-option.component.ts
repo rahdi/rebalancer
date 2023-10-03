@@ -9,11 +9,11 @@ import { Path, sharedStore } from 'shared';
 })
 export class ChooseOptionComponent {
   path = Path;
-  isLoading$ = this.store.select(sharedStore.selectors.api.selectIsLoading);
+  isLoading$ = this.store.select(sharedStore.selectors.apiAuth.selectIsLoading);
 
   constructor(private store: Store<AppState>) {}
 
   guestLogIn() {
-    this.store.dispatch(sharedStore.actions.api.guestLogIn());
+    this.store.dispatch(sharedStore.actions.apiAuth.guestLogIn());
   }
 }

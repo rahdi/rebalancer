@@ -7,8 +7,8 @@ import { Path, sharedStore } from 'shared';
 import { AppState } from 'app.store';
 import { coreSelectors, coreActions } from '../../store';
 
-const apiActions = sharedStore.actions.api;
-const apiSelectors = sharedStore.selectors.api;
+const apiAuthActions = sharedStore.actions.apiAuth;
+const apiAuthSelectors = sharedStore.selectors.apiAuth;
 
 @Component({
   selector: 'app-menu-dialog',
@@ -19,7 +19,7 @@ export class MenuDialogComponent implements OnDestroy {
   @ViewChild('menuDialog') dialog?: ElementRef<HTMLDialogElement>;
   isOpen$ = this.store.select(coreSelectors.selectIsMenuOpen);
   isOpenSub: Subscription;
-  userEmail = this.store.select(apiSelectors.selectEmail);
+  userEmail = this.store.select(apiAuthSelectors.selectEmail);
   path = Path;
 
   constructor(private store: Store<AppState>, private router: Router) {
@@ -43,7 +43,7 @@ export class MenuDialogComponent implements OnDestroy {
   }
 
   logOut() {
-    this.store.dispatch(apiActions.logOut());
+    this.store.dispatch(apiAuthActions.logOut());
   }
 
   onClose($event: Event) {

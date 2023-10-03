@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import {
   GuestLoginResponse,
   LoginPayload,
@@ -8,10 +8,10 @@ import {
   RefreshTokenResponse,
   RegisterPayload,
   RegisterResponse,
-} from './api.types';
+} from './api-auth.types';
 
 @Injectable({ providedIn: 'root' })
-export class ApiService {
+export class ApiAuthService {
   constructor(private http: HttpClient) {}
 
   register({ email, password }: RegisterPayload) {

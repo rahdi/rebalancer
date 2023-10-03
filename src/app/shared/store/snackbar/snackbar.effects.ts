@@ -4,7 +4,7 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
 import { snackbarActions, snackbarSelectors } from '.';
-import { ErrorResponse, apiActions } from '../api';
+import { ErrorResponse, apiStore } from '../api';
 import { AppState } from 'app.store';
 
 const transformErrorMessage = (error: ErrorResponse) => {
@@ -30,7 +30,7 @@ const transformErrorMessage = (error: ErrorResponse) => {
 export class SnackbarEffects {
   showSnackbarOnError$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(apiActions.apiResponseFailed),
+      ofType(apiStore.actions.apiAuth.errorResponse),
       map(({ error }) =>
         snackbarActions.addSnackbar({
           payload: { color: 'warning', message: transformErrorMessage(error) },

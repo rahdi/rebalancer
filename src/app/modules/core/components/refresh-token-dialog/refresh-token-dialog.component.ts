@@ -6,8 +6,8 @@ import { AppState } from 'app.store';
 import { coreActions, coreSelectors } from '../../store';
 import { sharedStore } from 'shared';
 
-const apiActions = sharedStore.actions.api;
-const apiSelectors = sharedStore.selectors.api;
+const apiAuthActions = sharedStore.actions.apiAuth;
+const apiAuthSelectors = sharedStore.selectors.apiAuth;
 
 @Component({
   selector: 'app-refresh-token-dialog',
@@ -18,7 +18,7 @@ export class RefreshTokenDialogComponent implements OnDestroy {
   @ViewChild('refreshTokenDialog') dialog?: ElementRef<HTMLDialogElement>;
   isOpen = false;
   isOpenSub: Subscription;
-  isLoading$ = this.store.select(apiSelectors.selectIsLoading);
+  isLoading$ = this.store.select(apiAuthSelectors.selectIsLoading);
   refreshToken = '';
   refreshTokenSub: Subscription;
   timeout: NodeJS.Timeout | null = null;
@@ -39,7 +39,7 @@ export class RefreshTokenDialogComponent implements OnDestroy {
       });
 
     this.refreshTokenSub = this.store
-      .select(apiSelectors.selectAuthData)
+      .select(apiAuthSelectors.selectAuthData)
       .subscribe((authData) => {
         if (!authData?.refreshToken) return;
 
@@ -60,12 +60,14 @@ export class RefreshTokenDialogComponent implements OnDestroy {
 
     this.timeout = setTimeout(() => {
       this.dialog?.nativeElement.close();
-      this.store.dispatch(apiActions.logOut());
+      this.store.dispatch(apiAuthActions.logOut());
     }, 150);
   }
 
   continue() {
-    this.store.dispatch(apiActions.refreshToken({ token: this.refreshToken }));
+    this.store.dispatch(
+      apiAuthActions.refreshToken({ token: this.refreshToken })
+    );
   }
 
   ngOnDestroy(): void {

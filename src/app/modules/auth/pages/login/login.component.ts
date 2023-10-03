@@ -5,8 +5,8 @@ import { AppState } from 'app.store';
 
 import { Path, sharedStore } from 'shared';
 
-const apiSelectors = sharedStore.selectors.api;
-const apiActions = sharedStore.actions.api;
+const apiAuthSelectors = sharedStore.selectors.apiAuth;
+const apiAuthActions = sharedStore.actions.apiAuth;
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,7 @@ export class LoginComponent {
       validators: [Validators.required, Validators.minLength(6)],
     }),
   });
-  isLoading$ = this.store.select(apiSelectors.selectIsLoading);
+  isLoading$ = this.store.select(apiAuthSelectors.selectIsLoading);
 
   validateInput(name: 'email' | 'password') {
     const control = this.loginForm.get(name);
@@ -53,7 +53,7 @@ export class LoginComponent {
 
   async onSubmit() {
     this.store.dispatch(
-      apiActions.logIn({
+      apiAuthActions.logIn({
         email: this.loginForm.value.email || '',
         password: this.loginForm.value.password || '',
       })
