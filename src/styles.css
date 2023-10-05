@@ -154,6 +154,16 @@ router-outlet+* {
 	align-items: center;
 }
 
+ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
+	background-color: white;
+	box-shadow: theme('boxShadow.container');
+	color: theme('colors.primary.900');
+}
+
+ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip .tooltip-caret.position-top {
+	border-top-color: white;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

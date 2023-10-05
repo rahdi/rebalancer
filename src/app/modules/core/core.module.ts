@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { CoreRoutingModule } from './core-routing.module';
 import {
@@ -16,6 +17,7 @@ import {
   AssetFormComponent,
   FabComponent,
   RefreshTokenDialogComponent,
+  ChartComponent,
 } from './components';
 import { SharedModule } from 'shared';
 
@@ -31,7 +33,14 @@ import { SharedModule } from 'shared';
     AssetFormComponent,
     FabComponent,
     RefreshTokenDialogComponent,
+    ChartComponent,
   ],
-  imports: [CommonModule, CoreRoutingModule, SharedModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    CoreRoutingModule,
+    SharedModule,
+    ReactiveFormsModule,
+    NgxChartsModule,
+  ],
 })
 export class CoreModule {}

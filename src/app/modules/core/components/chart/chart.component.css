@@ -1,0 +1,87 @@
+/* Chart Content START */
+::ng-deep .ngx-charts-outer {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+  ::ng-deep .ngx-charts-outer {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* Legend START */
+
+/* Legend Header */
+::ng-deep .chart-legend>div:nth-child(1) {
+  width: auto !important;
+}
+
+::ng-deep .chart-legend>div>header.legend-title {
+  font-size: 1.25rem;
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  ::ng-deep .chart-legend>div>header.legend-title {
+    display: block;
+  }
+}
+
+::ng-deep .chart-legend>div>header.legend-title>.legend-title-text {
+  line-height: 1.75rem;
+}
+
+/* Legend Labels */
+::ng-deep .ngx-charts-outer>.chart-legend {
+  padding-left: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  ::ng-deep .ngx-charts-outer>.chart-legend {
+    padding-left: 0;
+  }
+}
+
+::ng-deep .chart-legend .legend-wrap>ul.legend-labels {
+  background: none;
+  overflow-y: visible;
+  overflow-x: visible
+}
+
+@media screen and (min-width: 768px) {
+  ::ng-deep .chart-legend .legend-wrap>ul.legend-labels {
+    overflow-y: auto;
+    overflow-x: hidden
+  }
+}
+
+::ng-deep .chart-legend .legend-wrap .legend-label {
+  display: block;
+  color: theme('colors.primary.900');
+}
+
+::ng-deep .chart-legend .legend-wrap .legend-label-color {
+  height: 32px;
+  width: 32px;
+  border-radius: 0;
+  margin-right: 1rem;
+}
+
+::ng-deep .chart-legend .legend-wrap .legend-label-text {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  vertical-align: super;
+  opacity: 0.5;
+}
+
+::ng-deep .chart-legend .legend-wrap .legend-label .active .legend-label-text {
+  color: theme('colors.primary.900');
+  opacity: 1
+}
+
+/* Legend END */
+
+/* Chart Content END */
