@@ -10,22 +10,28 @@ import { Path, SharedModule } from 'shared';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Location as NgLocation } from '@angular/common';
 import { Router } from '@angular/router';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { CoreModule } from '../../core.module';
 
 describe('AssetFormComponent', () => {
   let component: AssetFormComponent;
   let fixture: ComponentFixture<AssetFormComponent>;
   let location: NgLocation;
   let router: Router;
+  let store: MockStore;
+  const initialState = { apiAuth: { authData: {} } };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AssetFormComponent],
-      imports: [SharedModule, RouterTestingModule],
+      imports: [CoreModule, RouterTestingModule],
+      providers: [provideMockStore({ initialState })],
     });
     fixture = TestBed.createComponent(AssetFormComponent);
-    component = fixture.componentInstance;
     router = TestBed.inject(Router);
     location = TestBed.inject(NgLocation);
+    store = TestBed.inject(MockStore);
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
@@ -84,7 +90,7 @@ describe('AssetFormComponent', () => {
   }));
 
   it('should display a Confirm button', () => {
-    const button = fixture.nativeElement.querySelector('.btn-primary');
+    const button = fixture.nativeElement.querySelector('button.btn');
     expect(button).toBeTruthy();
     expect(button.innerText).toBe('Add');
   });

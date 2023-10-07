@@ -39,17 +39,18 @@ const single = [
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css'],
-  styles: [
-    `
-      ::ng-deep .chart-legend > div > header.legend-title > .legend-title-text {
-        max-width: ${LEGEND_MARGIN - 20}px;
-      }
+  // TODO: uncomment
+  // styles: [
+  //   `
+  //     ::ng-deep .chart-legend > div > header.legend-title > .legend-title-text {
+  //       max-width: ${LEGEND_MARGIN - 20}px;
+  //     }
 
-      ::ng-deep .chart-legend .legend-wrap .legend-label-text {
-        max-width: ${LEGEND_MARGIN - 20}px;
-      }
-    `,
-  ],
+  //     ::ng-deep .chart-legend .legend-wrap .legend-label-text {
+  //       max-width: ${LEGEND_MARGIN - 20}px;
+  //     }
+  //   `,
+  // ],
 })
 export class ChartComponent {
   single: any[] = [];
@@ -99,7 +100,6 @@ export class ChartComponent {
   @HostListener('window:resize')
   @HostListener('window:change')
   handleResize() {
-    console.log('resize');
     if (window.innerWidth >= 1280) {
       this.height = window.innerHeight - BLOCK_MARGIN;
       this.width = window.innerWidth - 512 - LEGEND_MARGIN;

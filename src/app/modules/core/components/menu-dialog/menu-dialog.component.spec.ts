@@ -9,7 +9,7 @@ describe('MenuDialogComponent', () => {
   let component: MenuDialogComponent;
   let fixture: ComponentFixture<MenuDialogComponent>;
   let store: MockStore;
-  const initialState = { api: { email: '' } };
+  const initialState = { apiAuth: { email: '' } };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -46,7 +46,7 @@ describe('MenuDialogComponent', () => {
   });
 
   it('should have a "Welcome" text, when user is logged in', () => {
-    store.setState({ api: { email: 'test@test.test' } });
+    store.setState({ apiAuth: { email: 'test@test.test' } });
     fixture.detectChanges();
 
     const p = fixture.nativeElement.querySelector('p');
@@ -55,7 +55,7 @@ describe('MenuDialogComponent', () => {
   });
 
   it('should have a "Log out" button, when user is logged in', () => {
-    store.setState({ api: { email: 'test@test.test' } });
+    store.setState({ apiAuth: { email: 'test@test.test' } });
     fixture.detectChanges();
 
     const button = fixture.nativeElement.querySelector('.btn-primary');

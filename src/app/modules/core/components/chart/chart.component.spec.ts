@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChartComponent } from './chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 describe('ChartComponent', () => {
   let component: ChartComponent;
@@ -8,7 +9,8 @@ describe('ChartComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ChartComponent]
+      declarations: [ChartComponent],
+      imports: [NgxChartsModule],
     });
     fixture = TestBed.createComponent(ChartComponent);
     component = fixture.componentInstance;

@@ -19,7 +19,7 @@ describe('FabComponent', () => {
   let location: NgLocation;
   let router: Router;
   let store: MockStore;
-  const initialState = { api: { authData: null } };
+  const initialState = { apiAuth: { authData: null } };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -51,7 +51,7 @@ describe('FabComponent', () => {
   }));
 
   it('should navigate to "new-asset" on click, when user is logged in', fakeAsync(() => {
-    store.setState({ api: { authData: {} } });
+    store.setState({ apiAuth: { authData: {} } });
     fixture.detectChanges();
 
     const link = fixture.nativeElement.querySelector('a');
