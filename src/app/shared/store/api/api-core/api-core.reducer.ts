@@ -11,12 +11,14 @@ export interface State {
   assets: Asset[];
   currentAssetId: number | null;
   currentAssetGroup: string;
+  isLoading: boolean;
 }
 
 const initialState: State = {
   assets: [],
   currentAssetId: null,
   currentAssetGroup: '',
+  isLoading: false,
 };
 
 export const reducer = createReducer(

@@ -1,39 +1,14 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Color, LegendPosition, ScaleType } from '@swimlane/ngx-charts';
+import { AppState } from 'app.store';
+import { Subscription } from 'rxjs';
+import { sharedStore } from 'shared';
 
 const LEGEND_MARGIN = 250;
 const BLOCK_MARGIN = 200;
 
-const single = [
-  {
-    name: 'Stocks (28%)',
-    value: 8940000,
-  },
-  {
-    name: 'Bonds (28%)',
-    value: 5000000,
-  },
-  {
-    name: 'Commodities (28%)',
-    value: 7200000,
-  },
-  {
-    name: 'ETFs (28%)',
-    value: 6200000,
-  },
-  {
-    name: 'Real Estates and some long random text to test ellipsis (28%)',
-    value: 6200000,
-  },
-  {
-    name: 'Real Estates1 (28%)',
-    value: 6200000,
-  },
-  {
-    name: 'Real Estates2 (28%)',
-    value: 6200000,
-  },
-];
+const apiCoreSelectors = sharedStore.selectors.apiCore;
 
 @Component({
   selector: 'app-chart',
@@ -52,8 +27,10 @@ const single = [
   //   `,
   // ],
 })
-export class ChartComponent {
-  single: any[] = [];
+export class ChartComponent implements OnDestroy {
+  isLoading$ = this.store.select(apiCoreSelectors.selectIsLoading);
+  chartData$ = this.store.select(apiCoreSelectors.selectChartData);
+  totalAmountSub: Subscription;
   width = window.innerWidth - LEGEND_MARGIN;
   height = window.innerWidth;
 
@@ -61,7 +38,7 @@ export class ChartComponent {
   showLegend = true;
   isDoughnut = true;
   legendPosition = LegendPosition.Right;
-  legendTitle = 'Total: 100 000 $ (100%)';
+  legendTitle = '';
   maxLabelLength = 20;
   animations = false;
 
@@ -80,21 +57,28 @@ export class ChartComponent {
     ],
   };
 
-  constructor() {
-    Object.assign(this, { single });
+  constructor(private store: Store<AppState>) {
     this.handleResize();
+    this.totalAmountSub = this.store
+      .select(apiCoreSelectors.selectTotalAmount)
+      .subscribe((next) => {
+        this.legendTitle = `Total: ${next} $ (100%)`;
+      });
   }
 
-  onSelect(data: any): void {
-    // console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  formatTooltip(tooltip: {
+    data: { name: string; value: number; extra: string };
+  }) {
+    const {
+      data: { name, value, extra },
+    } = tooltip;
+
+    return `<span class="tooltip-label">${name}</span>
+    <span class="tooltip-val">${value} $ (${extra}%)</span>`;
   }
 
-  onActivate(data: any): void {
-    // console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: any): void {
-    // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  onSelect(data: { name: string }): void {
+    console.log(data.name);
   }
 
   @HostListener('window:resize')
@@ -116,5 +100,9 @@ export class ChartComponent {
     } else {
       this.legendPosition = LegendPosition.Below;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.totalAmountSub.unsubscribe();
   }
 }

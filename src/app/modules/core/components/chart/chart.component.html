@@ -1,15 +1,20 @@
+<div class="blurred-backdrop" *ngIf="isLoading$ | async">
+  <app-loader></app-loader>
+</div>
+
 <h5 class="relative top-5 block md:hidden">{{ legendTitle }}</h5>
 
 <ngx-charts-pie-chart
   [scheme]="colorScheme"
   [view]="[width, height]"
-  [results]="single"
+  [results]="chartData$ | async"
   [animations]="animations"
   [legend]="showLegend"
   [legendPosition]="legendPosition"
   [legendTitle]="legendTitle"
   [maxLabelLength]="maxLabelLength"
   [doughnut]="isDoughnut"
+  [tooltipText]="formatTooltip"
   (select)="onSelect($event)"
 >
 </ngx-charts-pie-chart>
