@@ -6,6 +6,7 @@
         label="Asset's name"
         formControlName="name"
         [errorMessage]="nameErrorMessage"
+        [focus]="true"
       ></app-labeled-input>
       <app-labeled-input
         [id]="(edit ? 'edit' : 'new') + '-asset-group'"

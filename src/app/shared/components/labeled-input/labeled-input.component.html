@@ -2,6 +2,7 @@
   <label class="flex-1 md:text-right" [attr.for]="id">{{ label }}</label>
   <input
     *ngIf="control"
+    #labeledInput
     [attr.type]="type"
     [attr.id]="id"
     [formControl]="control"

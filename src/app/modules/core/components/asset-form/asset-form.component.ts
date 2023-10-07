@@ -86,7 +86,7 @@ export class AssetFormComponent {
     const asset = {
       name: this.assetForm.value[FormFields.Name] || '',
       group: this.assetForm.value[FormFields.Group] || '',
-      amount: this.assetForm.value[FormFields.Amount] || 0,
+      amount: Number(this.assetForm.value[FormFields.Amount] || 0),
     };
 
     this.store.dispatch(sharedStore.actions.apiCore.addAsset({ asset }));

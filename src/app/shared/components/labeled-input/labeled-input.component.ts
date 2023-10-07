@@ -1,4 +1,12 @@
-import { Component, Input, OnInit, forwardRef } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+  forwardRef,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
@@ -16,12 +24,16 @@ import {
     },
   ],
 })
-export class LabeledInputComponent implements OnInit, ControlValueAccessor {
+export class LabeledInputComponent
+  implements OnInit, AfterViewInit, ControlValueAccessor
+{
+  @ViewChild('labeledInput') input?: ElementRef<HTMLInputElement>;
   @Input() id!: string;
   @Input() label = '';
   @Input() type: HTMLInputElement['type'] = 'text';
   @Input() errorMessage?: string;
   @Input() autoComplete?: string;
+  @Input() focus?: boolean;
 
   control?: FormControl;
   onTouched() {}
@@ -29,6 +41,12 @@ export class LabeledInputComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     this.control = new FormControl('');
+  }
+
+  ngAfterViewInit(): void {
+    if (this.focus) {
+      this.input?.nativeElement.focus();
+    }
   }
 
   writeValue(value: never): void {
