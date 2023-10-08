@@ -1,7 +1,11 @@
 <app-content-container header="Your portfolio" class="w-full h-full flex">
+  <div class="blurred-backdrop" *ngIf="isLoading$ | async">
+    <app-loader></app-loader>
+  </div>
+
   <div
     class="flex flex-col flex-1 justify-center items-center pb-20"
-    *ngIf="((assets$ | async) || []).length === 0"
+    *ngIf="((assets$ | async) || []).length === 0 && !(isLoading$ | async)"
   >
     <h6>You don't have any assets yet.</h6>
 

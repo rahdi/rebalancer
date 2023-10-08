@@ -3,6 +3,8 @@ import {
   addAsset,
   addAssetSuccess,
   errorResponse,
+  fetchAssets,
+  fetchAssetsSuccess,
   // removeAsset,
   setCurrentAssetGroup,
   setCurrentAssetId,
@@ -38,6 +40,15 @@ export const reducer = createReducer(
   //   ...state,
   //   assets: [...state.assets].filter((_, i) => i !== action.index),
   // })),
+  on(fetchAssets, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
+  on(fetchAssetsSuccess, (state, { assets }) => ({
+    ...state,
+    isLoading: false,
+    assets,
+  })),
   on(setCurrentAssetId, (state, action) => ({
     ...state,
     currentAssetId: action.id,

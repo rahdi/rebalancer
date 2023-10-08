@@ -29,21 +29,19 @@ export class Effects {
     )
   );
 
-  fetchAssets$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(actions.fetchAssets),
-        concatLatestFrom(() =>
-          this.store.select(apiAuthSelectors.selectAuthData)
-        ),
-        exhaustMap(([_, authData]) =>
-          this.apiCoreService.fetchAssets(authData!.userId).pipe(
-            tap((response) => console.log(response)),
-            catchError((error) => of(actions.errorResponse({ error })))
-          )
-        )
+  fetchAssets$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.fetchAssets),
+      concatLatestFrom(() =>
+        this.store.select(apiAuthSelectors.selectAuthData)
       ),
-    { dispatch: false }
+      exhaustMap(([_, authData]) =>
+        this.apiCoreService.fetchAssets(authData!.userId).pipe(
+          map((response) => actions.fetchAssetsSuccess({ assets: response })),
+          catchError((error) => of(actions.errorResponse({ error })))
+        )
+      )
+    )
   );
 
   redirect$ = createEffect(
