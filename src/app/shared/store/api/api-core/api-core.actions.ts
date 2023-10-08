@@ -1,19 +1,23 @@
 import { createAction, props } from '@ngrx/store';
-import { Asset, FetchAssetsResponse } from './api-core.types';
+import {
+  AddAssetSuccessPayload,
+  Asset,
+  FetchAssetsSuccessPayload,
+} from './api-core.types';
 
 export const fetchAssets = createAction('[API Core] Fetch Assets');
 export const fetchAssetsSuccess = createAction(
   '[API Core] Fetch Assets Success',
-  props<{ assets: FetchAssetsResponse }>()
+  props<{ assets: FetchAssetsSuccessPayload }>()
 );
 
 export const addAsset = createAction(
   '[API Core] Add Asset',
   props<{ asset: Asset }>()
 );
-export const AddAssetSuccess = createAction(
+export const addAssetSuccess = createAction(
   '[API Core] Add Asset Success',
-  props<{ assetId: string }>()
+  props<{ payload: AddAssetSuccessPayload }>()
 );
 
 export const removeAsset = createAction(

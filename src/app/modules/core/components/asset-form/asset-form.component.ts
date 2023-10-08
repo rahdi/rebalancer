@@ -7,7 +7,6 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'app.store';
@@ -54,6 +53,7 @@ export class AssetFormComponent {
       validators: [amountValidator()],
     }),
   });
+  isLoading$ = this.store.select(sharedStore.selectors.apiCore.selectIsLoading);
 
   validateInput(name: FormFields) {
     const control = this.assetForm.get(name);
@@ -90,8 +90,7 @@ export class AssetFormComponent {
     };
 
     this.store.dispatch(sharedStore.actions.apiCore.addAsset({ asset }));
-    this.router.navigate([`/${Path.Dashboard}`]);
   }
 
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<AppState>) {}
 }

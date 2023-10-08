@@ -7,6 +7,8 @@ import { snackbarActions, snackbarSelectors } from '.';
 import { ErrorResponse, apiStore } from '../api';
 import { AppState } from 'app.store';
 
+const apiActions = apiStore.actions;
+
 const transformErrorMessage = (error: ErrorResponse) => {
   let message = 'Something went wrong.';
 
@@ -30,7 +32,10 @@ const transformErrorMessage = (error: ErrorResponse) => {
 export class SnackbarEffects {
   showSnackbarOnError$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(apiStore.actions.apiAuth.errorResponse),
+      ofType(
+        apiActions.apiAuth.errorResponse,
+        apiActions.apiCore.errorResponse
+      ),
       map(({ error }) =>
         snackbarActions.addSnackbar({
           payload: { color: 'warning', message: transformErrorMessage(error) },

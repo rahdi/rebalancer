@@ -7,20 +7,29 @@ export const selectCurrentAssetId = (state: AppState) =>
 export const selectCurrentAssetGroup = (state: AppState) =>
   state.apiCore.currentAssetGroup;
 
-export const selectTotalAmount = createSelector(selectAssets, (assets) =>
-  assets
-    .map((asset) => asset.amount)
-    .reduce((total, current) => total + current)
-);
+export const selectTotalAmount = createSelector(selectAssets, (assets) => {
+  const assetsArray = Object.values(assets);
+
+  if (assetsArray.length > 0) {
+    return assetsArray
+      .filter(Boolean)
+      .map((asset) => asset.amount)
+      .reduce((total, current) => total + current);
+  }
+
+  return 0;
+});
 
 export const selectChartData = createSelector(
   selectAssets,
   selectTotalAmount,
   (assets, totalAmount) => {
-    const groups = [...new Set(assets.map((asset) => asset.group))];
+    const assetsArray = Object.values(assets) || [];
+    const groups = [...new Set(assetsArray.map((asset) => asset.group))];
+
     const chartData = groups.map((group) => ({
       name: group,
-      value: assets
+      value: assetsArray
         .filter((asset) => asset.group === group)
         .map((asset) => asset.amount)
         .reduce((total, current) => total + current),
@@ -36,7 +45,8 @@ export const selectChartData = createSelector(
 export const selectOneGroupOfAssets = createSelector(
   selectAssets,
   selectCurrentAssetGroup,
-  (assets, group) => assets.filter((asset) => asset.group === group)
+  (assets, group) =>
+    Object.values(assets).filter((asset) => asset.group === group)
 );
 
 export const selectIsLoading = (state: AppState) => state.apiCore.isLoading;

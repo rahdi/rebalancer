@@ -1,21 +1,23 @@
 import { createReducer, on } from '@ngrx/store';
 import {
   addAsset,
-  removeAsset,
+  addAssetSuccess,
+  errorResponse,
+  // removeAsset,
   setCurrentAssetGroup,
   setCurrentAssetId,
 } from './api-core.actions';
-import { Asset } from './api-core.types';
+import { FetchAssetsResponse } from './api-core.types';
 
 export interface State {
-  assets: Asset[];
+  assets: FetchAssetsResponse;
   currentAssetId: number | null;
   currentAssetGroup: string;
   isLoading: boolean;
 }
 
 const initialState: State = {
-  assets: [],
+  assets: {},
   currentAssetId: null,
   currentAssetGroup: '',
   isLoading: false,
@@ -23,14 +25,19 @@ const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(addAsset, (state, action) => ({
+  on(addAsset, (state) => ({
     ...state,
-    assets: [...state.assets, action.asset],
+    isLoading: true,
   })),
-  on(removeAsset, (state, action) => ({
+  on(addAssetSuccess, (state, { payload }) => ({
     ...state,
-    assets: [...state.assets].filter((_, i) => i !== action.index),
+    isLoading: false,
+    assets: { ...state.assets, ...payload },
   })),
+  // on(removeAsset, (state, action) => ({
+  //   ...state,
+  //   assets: [...state.assets].filter((_, i) => i !== action.index),
+  // })),
   on(setCurrentAssetId, (state, action) => ({
     ...state,
     currentAssetId: action.id,
@@ -38,5 +45,9 @@ export const reducer = createReducer(
   on(setCurrentAssetGroup, (state, action) => ({
     ...state,
     currentAssetGroup: action.group,
+  })),
+  on(errorResponse, (state) => ({
+    ...state,
+    isLoading: false,
   }))
 );
