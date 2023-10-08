@@ -3,3 +3,5 @@ export type Asset = {
   group: string;
   amount: number;
 };
+
+export type FetchAssetsResponse = Record<string, Asset>;

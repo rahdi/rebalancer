@@ -5,6 +5,7 @@
         [id]="(edit ? 'edit' : 'new') + '-asset-name'"
         label="Asset's name"
         formControlName="name"
+        autoComplete="off"
         [errorMessage]="nameErrorMessage"
         [focus]="true"
       ></app-labeled-input>
@@ -12,14 +13,15 @@
         [id]="(edit ? 'edit' : 'new') + '-asset-group'"
         label="Group of investments"
         formControlName="group"
+        autoComplete="off"
         [errorMessage]="groupErrorMessage"
       ></app-labeled-input>
       <app-labeled-input
         [id]="(edit ? 'edit' : 'new') + '-asset-amount'"
         label="Amount of money invested"
         formControlName="amount"
-        [errorMessage]="amountErrorMessage"
         autoComplete="off"
+        [errorMessage]="amountErrorMessage"
       ></app-labeled-input>
     </div>
 

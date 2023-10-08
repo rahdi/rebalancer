@@ -77,8 +77,12 @@ export class ChartComponent implements OnDestroy {
     <span class="tooltip-val">${value} $ (${extra}%)</span>`;
   }
 
-  onSelect(data: { name: string }): void {
-    console.log(data.name);
+  onSelect(data: { name: string } | string): void {
+    if (typeof data === 'string') {
+      console.log(data);
+    } else {
+      console.log(data.name);
+    }
   }
 
   @HostListener('window:resize')

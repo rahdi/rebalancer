@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {
   LayoutComponent,
   LabeledInputComponent,
   LoaderComponent,
+  SnackbarComponent,
 } from './components';
 import {
   PigIconComponent,
   WeightIconComponent,
   CloseIconComponent,
 } from './icons';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { AuthInterceptorService } from './services';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,13 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     SnackbarComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   exports: [
     LayoutComponent,
     LabeledInputComponent,

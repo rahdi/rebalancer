@@ -1,6 +1,7 @@
 export { LayoutComponent } from './components';
 export { Path } from './enums';
 export { authGuard } from './guards';
+export { AuthInterceptorService } from './services';
 export {
   WeightIconComponent,
   PigIconComponent,

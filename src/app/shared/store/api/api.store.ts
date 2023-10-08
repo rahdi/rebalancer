@@ -21,4 +21,4 @@ export const selectors = {
   apiCore: apiCoreStore.selectors,
 };
 
-export const effects = [apiAuthStore.Effects];
+export const effects = [apiAuthStore.Effects, apiCoreStore.Effects];
