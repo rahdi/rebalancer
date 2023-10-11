@@ -8,7 +8,7 @@ export const selectCurrentAssetGroup = (state: AppState) =>
   state.apiCore.currentAssetGroup;
 
 export const selectTotalAmount = createSelector(selectAssets, (assets) => {
-  const assetsArray = Object.values(assets);
+  const assetsArray = Object.values(assets || {});
 
   if (assetsArray.length > 0) {
     return assetsArray
@@ -24,7 +24,7 @@ export const selectChartData = createSelector(
   selectAssets,
   selectTotalAmount,
   (assets, totalAmount) => {
-    const assetsArray = Object.values(assets) || [];
+    const assetsArray = Object.values(assets || {});
     const groups = [...new Set(assetsArray.map((asset) => asset.group))];
 
     const chartData = groups.map((group) => ({
@@ -46,7 +46,7 @@ export const selectOneGroupOfAssets = createSelector(
   selectAssets,
   selectCurrentAssetGroup,
   (assets, group) =>
-    Object.values(assets).filter((asset) => asset.group === group)
+    Object.values(assets || {}).filter((asset) => asset.group === group)
 );
 
 export const selectIsLoading = (state: AppState) => state.apiCore.isLoading;

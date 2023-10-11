@@ -14,7 +14,7 @@
     >
   </div>
 
-  <div *ngIf="((assets$ | async) || []).length > 0">
+  <div *ngIf="((assets$ | async) || []).length > 0" class="overflow-y-auto">
     <app-chart
       class="flex flex-1 flex-col md:flex-row justify-start items-center md:px-5 py-5 overflow-x-hidden"
     ></app-chart>

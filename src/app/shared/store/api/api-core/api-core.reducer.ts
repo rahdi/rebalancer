@@ -47,7 +47,7 @@ export const reducer = createReducer(
   on(fetchAssetsSuccess, (state, { assets }) => ({
     ...state,
     isLoading: false,
-    assets,
+    assets: assets || {},
   })),
   on(setCurrentAssetId, (state, action) => ({
     ...state,

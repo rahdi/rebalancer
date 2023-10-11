@@ -3,6 +3,7 @@
   display: flex;
   gap: 1rem;
   flex-direction: column;
+  height: auto !important;
 }
 
 @media screen and (min-width: 768px) {
