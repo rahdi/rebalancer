@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Path, authGuard } from 'shared';
+import { Path, PathParams, authGuard } from 'shared';
 import {
   AssetGroupComponent,
   DashboardComponent,
@@ -25,7 +25,7 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: Path.AssetGroup,
+    path: `${Path.AssetGroup}/:${PathParams.Name}`,
     component: AssetGroupComponent,
     canActivate: [authGuard],
   },

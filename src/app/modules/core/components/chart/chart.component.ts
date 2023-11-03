@@ -1,9 +1,10 @@
 import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Color, LegendPosition, ScaleType } from '@swimlane/ngx-charts';
 import { AppState } from 'app.store';
 import { Subscription } from 'rxjs';
-import { sharedStore } from 'shared';
+import { Path, sharedStore } from 'shared';
 
 const LEGEND_MARGIN = 250;
 const BLOCK_MARGIN = 200;
@@ -57,7 +58,7 @@ export class ChartComponent implements OnDestroy {
     ],
   };
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private router: Router) {
     this.handleResize();
     this.totalAmountSub = this.store
       .select(apiCoreSelectors.selectTotalAmount)
@@ -83,6 +84,8 @@ export class ChartComponent implements OnDestroy {
     } else {
       console.log(data.name);
     }
+    const groupName = typeof data === 'string' ? data : data.name;
+    this.router.navigate([`/${Path.AssetGroup}`, groupName]);
   }
 
   @HostListener('window:resize')

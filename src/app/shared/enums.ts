@@ -10,3 +10,7 @@ export enum Path {
   AssetGroup = 'asset-group',
   Wildcard = '**',
 }
+
+export enum PathParams {
+  Name = 'name',
+}

@@ -1,5 +1,5 @@
 export { LayoutComponent } from './components';
-export { Path } from './enums';
+export { Path, PathParams } from './enums';
 export { authGuard } from './guards';
 export { AuthInterceptorService } from './services';
 export {
