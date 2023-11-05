@@ -7,6 +7,6 @@ export {
   PigIconComponent,
   CloseIconComponent,
 } from './icons';
-export { sharedStore } from './store';
+export { sharedStore, Asset } from './store';
 
 export { SharedModule } from './shared.module';

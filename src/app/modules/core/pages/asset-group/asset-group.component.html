@@ -1,7 +1,43 @@
 <app-content-container [header]="groupName" class="w-full h-full flex">
-  <div class="flex flex-col flex-1 justify-center items-center pb-20">
-    <p>Asset group content</p>
+  <div
+    class="flex flex-col flex-1 gap-3 md:gap-4 items-center pt-5 pb-20 px-5 overflow-x-hidden min-w-0"
+  >
+    <h5 class="truncate w-full text-center">
+      Total: 1111111111111111111111111111111111111111111111111111111111111111 $
+      (31%)
+    </h5>
 
+    <app-asset-item
+      *ngFor="let asset of assetGroup$ | async"
+      [asset]="asset"
+      class="w-full"
+    ></app-asset-item>
+
+    <!-- TODO: remove mock data below -->
+    <app-asset-item
+      [asset]="{
+        name: 'Microsoft is da best name of the world; you know it and we also all know it',
+        amount: 1043768632148534916.012344443212121212121212121323512345312452345234,
+        group: 'group1'
+      }"
+      class="w-full"
+    ></app-asset-item>
+    <app-asset-item
+      [asset]="{
+        name: 'Apple',
+        amount: 123,
+        group: 'group1'
+      }"
+      class="w-full"
+    ></app-asset-item>
+    <app-asset-item
+      [asset]="{
+        name: 'Google',
+        amount: 100000,
+        group: 'group1'
+      }"
+      class="w-full"
+    ></app-asset-item>
     <app-fab></app-fab>
   </div>
 </app-content-container>

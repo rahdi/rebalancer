@@ -18,6 +18,7 @@ import {
   FabComponent,
   RefreshTokenDialogComponent,
   ChartComponent,
+  AssetItemComponent,
 } from './components';
 import { SharedModule } from 'shared';
 
@@ -34,6 +35,7 @@ import { SharedModule } from 'shared';
     FabComponent,
     RefreshTokenDialogComponent,
     ChartComponent,
+    AssetItemComponent,
   ],
   imports: [
     CommonModule,

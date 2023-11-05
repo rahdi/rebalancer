@@ -79,11 +79,6 @@ export class ChartComponent implements OnDestroy {
   }
 
   onSelect(data: { name: string } | string): void {
-    if (typeof data === 'string') {
-      console.log(data);
-    } else {
-      console.log(data.name);
-    }
     const groupName = typeof data === 'string' ? data : data.name;
     this.router.navigate([`/${Path.AssetGroup}`, groupName]);
   }

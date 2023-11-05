@@ -263,6 +263,18 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip .tooltip-caret.posit
 		box-shadow: theme('boxShadow.btnPrimary');
 	}
 
+	.btn-warning:not([disabled]) {
+		background-color: theme('colors.warning.main');
+		color: theme('colors.white');
+		border-color: theme('colors.warning.main');
+	}
+
+	.btn-warning:hover:not([disabled]) {
+		background-color: theme('colors.warning.dark');
+		box-shadow: theme('boxShadow.btnWarning');
+		border-color: theme('colors.warning.dark');
+	}
+
 	.btn-secondary:not([disabled]) {
 		background-color: theme('colors.white');
 		color: theme('colors.primary.900');
@@ -275,6 +287,33 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip .tooltip-caret.posit
 	}
 
 	/* Containers */
+	.asset-item {
+		position: relative;
+		display: flex;
+		align-items: center;
+		border-style: solid;
+		border-width: 1px;
+		border-radius: theme('spacing[1.5]');
+		border-color: theme('colors.primary.900');
+		padding-inline: theme('spacing.5');
+		padding-block: theme('spacing.2');
+		transition-property: theme('transitionProperty.shadow'), theme('transitionProperty.colors');
+		transition-duration: theme('transitionDuration.200');
+	}
+
+	.asset-item:hover {
+		cursor: pointer;
+		background-color: theme('colors.primary.50');
+		box-shadow: theme('boxShadow.btnPrimary');
+	}
+
+	@media (min-width: 768px) {
+		.asset-item {
+			justify-content: center;
+			padding-block: theme('spacing.5');
+		}
+	}
+
 	.card {
 		background-color: theme('colors.white');
 		color: theme('colors.primary.900');

@@ -5,3 +5,4 @@ export { AssetFormComponent } from './asset-form/asset-form.component';
 export { FabComponent } from './fab/fab.component';
 export { RefreshTokenDialogComponent } from './refresh-token-dialog/refresh-token-dialog.component';
 export { ChartComponent } from './chart/chart.component';
+export { AssetItemComponent } from './asset-item/asset-item.component';

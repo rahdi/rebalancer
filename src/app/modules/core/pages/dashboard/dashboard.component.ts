@@ -6,6 +6,8 @@ import { Path, sharedStore } from 'shared';
 
 const apiCoreSelectors = sharedStore.selectors.apiCore;
 
+// TODO: add cache?
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
