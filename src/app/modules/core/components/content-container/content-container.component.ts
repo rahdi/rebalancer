@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Path } from 'shared';
 
 @Component({
   selector: 'app-content-container',
@@ -6,4 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ContentContainerComponent {
   @Input() header = '';
+  @Input() goBackButton?: boolean;
+  path = Path;
 }

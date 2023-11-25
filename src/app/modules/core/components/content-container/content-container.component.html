@@ -4,6 +4,9 @@
   <div
     class="relative flex justify-center items-center border-b border-b-primary-900 p-2 shadow-container xl:shadow-none xl:mx-5 z-10"
   >
+    <div *ngIf="goBackButton" class="block absolute left-2">
+      <app-go-back-button [goBackURL]="path.Dashboard"></app-go-back-button>
+    </div>
     <h4>{{ header }}</h4>
     <app-menu-button class="block absolute right-2 xl:hidden"></app-menu-button>
   </div>

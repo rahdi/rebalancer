@@ -19,6 +19,7 @@ import {
   RefreshTokenDialogComponent,
   ChartComponent,
   AssetItemComponent,
+  GoBackButtonComponent,
 } from './components';
 import { SharedModule } from 'shared';
 
@@ -36,6 +37,7 @@ import { SharedModule } from 'shared';
     RefreshTokenDialogComponent,
     ChartComponent,
     AssetItemComponent,
+    GoBackButtonComponent,
   ],
   imports: [
     CommonModule,
