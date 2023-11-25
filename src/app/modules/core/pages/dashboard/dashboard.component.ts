@@ -5,6 +5,7 @@ import { AppState } from 'app.store';
 import { Path, sharedStore } from 'shared';
 
 const apiCoreSelectors = sharedStore.selectors.apiCore;
+const apiCoreActions = sharedStore.actions.apiCore;
 
 // TODO: add cache?
 
@@ -20,6 +21,6 @@ export class DashboardComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(sharedStore.actions.apiCore.fetchAssets());
+    this.store.dispatch(apiCoreActions.fetchAssets());
   }
 }

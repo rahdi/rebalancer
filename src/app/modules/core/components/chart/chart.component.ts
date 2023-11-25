@@ -15,18 +15,17 @@ const apiCoreSelectors = sharedStore.selectors.apiCore;
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css'],
-  // TODO: uncomment
-  // styles: [
-  //   `
-  //     ::ng-deep .chart-legend > div > header.legend-title > .legend-title-text {
-  //       max-width: ${LEGEND_MARGIN - 20}px;
-  //     }
+  styles: [
+    `
+      ::ng-deep .chart-legend > div > header.legend-title > .legend-title-text {
+        max-width: ${LEGEND_MARGIN - 20}px;
+      }
 
-  //     ::ng-deep .chart-legend .legend-wrap .legend-label-text {
-  //       max-width: ${LEGEND_MARGIN - 20}px;
-  //     }
-  //   `,
-  // ],
+      ::ng-deep .chart-legend .legend-wrap .legend-label-text {
+        max-width: ${LEGEND_MARGIN - 20}px;
+      }
+    `,
+  ],
 })
 export class ChartComponent implements OnDestroy {
   isLoading$ = this.store.select(apiCoreSelectors.selectIsLoading);

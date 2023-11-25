@@ -18,6 +18,10 @@ export class AssetGroupComponent implements OnInit, OnDestroy {
   groupNameSub$?: Subscription;
   params$?: Subscription;
   assetGroup$ = this.store.select(apiCoreSelectors.selectOneGroupOfAssets);
+  totalAmount$ = this.store.select(
+    apiCoreSelectors.selectTotalAmountOfOneGroup
+  );
+  isLoading$ = this.store.select(apiCoreSelectors.selectIsLoading);
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>) {}
 
@@ -36,6 +40,9 @@ export class AssetGroupComponent implements OnInit, OnDestroy {
       .subscribe((groupName) => {
         this.groupName = groupName;
       });
+
+    // TODO: possible optimization - no need to fetch all assets probably
+    this.store.dispatch(apiCoreActions.fetchAssets());
   }
 
   ngOnDestroy(): void {

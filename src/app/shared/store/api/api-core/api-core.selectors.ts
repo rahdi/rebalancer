@@ -49,4 +49,25 @@ export const selectOneGroupOfAssets = createSelector(
     Object.values(assets || {}).filter((asset) => asset.group === group)
 );
 
+export const selectTotalAmountOfOneGroup = createSelector(
+  selectTotalAmount,
+  selectOneGroupOfAssets,
+  (allAssetsTotal, oneGroupOfAssets) => {
+    let oneGroupTotal = 0;
+    if (oneGroupOfAssets.length > 0) {
+      oneGroupTotal = oneGroupOfAssets
+        .filter(Boolean)
+        .map((asset) => asset.amount)
+        .reduce((sum, current) => sum + current);
+    }
+
+    const percentage = (100 * (oneGroupTotal / allAssetsTotal)).toFixed(2);
+
+    return {
+      amount: oneGroupTotal,
+      percentage,
+    };
+  }
+);
+
 export const selectIsLoading = (state: AppState) => state.apiCore.isLoading;
