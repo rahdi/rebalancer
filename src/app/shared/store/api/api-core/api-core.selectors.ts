@@ -1,6 +1,8 @@
 import { createSelector } from '@ngrx/store';
 import { AppState } from 'app.store';
 
+import { Asset } from './api-core.types';
+
 export const selectAssets = (state: AppState) => state.apiCore.assets;
 export const selectCurrentAssetId = (state: AppState) =>
   state.apiCore.currentAssetId;
@@ -45,8 +47,12 @@ export const selectChartData = createSelector(
 export const selectOneGroupOfAssets = createSelector(
   selectAssets,
   selectCurrentAssetGroup,
-  (assets, group) =>
-    Object.values(assets || {}).filter((asset) => asset.group === group)
+  (assets, group) => {
+    const transformedAssets: Asset[] = Object.entries(assets || {}).map(
+      ([assetId, asset]) => ({ ...asset, assetId })
+    );
+    return transformedAssets.filter((asset) => asset.group === group);
+  }
 );
 
 export const selectTotalAmountOfOneGroup = createSelector(

@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Asset } from 'shared';
+import { Store } from '@ngrx/store';
+import { AppState } from 'app.store';
+import { Asset, sharedStore } from 'shared';
 
 @Component({
   selector: 'app-asset-item',
@@ -8,4 +10,12 @@ import { Asset } from 'shared';
 })
 export class AssetItemComponent {
   @Input() asset?: Asset;
+
+  constructor(private store: Store<AppState>) {}
+
+  // TODO: maybe add a confirmation dialog here
+  deleteAsset(assetId?: string) {
+    if (!assetId) return;
+    this.store.dispatch(sharedStore.actions.apiCore.deleteAsset({ assetId }));
+  }
 }

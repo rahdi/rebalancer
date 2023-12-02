@@ -17,7 +17,9 @@ export class AssetGroupComponent implements OnInit, OnDestroy {
   groupName = '';
   groupNameSub$?: Subscription;
   params$?: Subscription;
-  assetGroup$ = this.store.select(apiCoreSelectors.selectOneGroupOfAssets);
+  oneGroupOfAssets$ = this.store.select(
+    apiCoreSelectors.selectOneGroupOfAssets
+  );
   totalAmount$ = this.store.select(
     apiCoreSelectors.selectTotalAmountOfOneGroup
   );

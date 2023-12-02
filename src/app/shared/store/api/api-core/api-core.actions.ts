@@ -20,14 +20,14 @@ export const addAssetSuccess = createAction(
   props<{ payload: AddAssetSuccessPayload }>()
 );
 
-export const removeAsset = createAction(
-  '[API Core] Remove Asset',
-  props<{ index: number }>()
+export const deleteAsset = createAction(
+  '[API Core] Delete Asset',
+  props<{ assetId: string }>()
 );
 
 export const setCurrentAssetId = createAction(
   '[API Core] Set Current Asset ID',
-  props<{ id: number }>()
+  props<{ assetId: string }>()
 );
 
 export const setCurrentAssetGroup = createAction(

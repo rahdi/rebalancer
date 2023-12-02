@@ -3,13 +3,14 @@
   [goBackButton]="true"
   class="w-full h-full flex"
 >
+  <div class="blurred-backdrop" *ngIf="isLoading$ | async">
+    <app-loader></app-loader>
+  </div>
+
   <div
+    *ngIf="!(isLoading$ | async)"
     class="flex flex-col flex-1 gap-3 md:gap-4 items-center pt-5 pb-20 px-5 overflow-x-hidden min-w-0"
   >
-    <div class="blurred-backdrop" *ngIf="isLoading$ | async">
-      <app-loader></app-loader>
-    </div>
-
     <h5 class="truncate w-full text-center">
       Total: {{ (totalAmount$ | async)?.amount }} $ ({{
         (totalAmount$ | async)?.percentage
@@ -18,7 +19,7 @@
 
     <!-- TODO: make asset items selectable by keyboard -->
     <app-asset-item
-      *ngFor="let asset of assetGroup$ | async"
+      *ngFor="let asset of oneGroupOfAssets$ | async"
       [asset]="asset"
       class="w-full"
     ></app-asset-item>

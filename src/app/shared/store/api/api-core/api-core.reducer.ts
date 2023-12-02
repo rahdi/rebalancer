@@ -2,10 +2,10 @@ import { createReducer, on } from '@ngrx/store';
 import {
   addAsset,
   addAssetSuccess,
+  deleteAsset,
   errorResponse,
   fetchAssets,
   fetchAssetsSuccess,
-  // removeAsset,
   setCurrentAssetGroup,
   setCurrentAssetId,
 } from './api-core.actions';
@@ -13,7 +13,7 @@ import { FetchAssetsResponse } from './api-core.types';
 
 export interface State {
   assets: FetchAssetsResponse;
-  currentAssetId: number | null;
+  currentAssetId: string | null;
   currentAssetGroup: string;
   isLoading: boolean;
 }
@@ -36,10 +36,7 @@ export const reducer = createReducer(
     isLoading: false,
     assets: { ...state.assets, ...payload },
   })),
-  // on(removeAsset, (state, action) => ({
-  //   ...state,
-  //   assets: [...state.assets].filter((_, i) => i !== action.index),
-  // })),
+  on(deleteAsset, (state) => ({ ...state, isLoading: true })),
   on(fetchAssets, (state) => ({
     ...state,
     isLoading: true,
@@ -51,7 +48,7 @@ export const reducer = createReducer(
   })),
   on(setCurrentAssetId, (state, action) => ({
     ...state,
-    currentAssetId: action.id,
+    currentAssetId: action.assetId,
   })),
   on(setCurrentAssetGroup, (state, action) => ({
     ...state,

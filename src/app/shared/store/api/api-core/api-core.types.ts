@@ -2,6 +2,7 @@ export type Asset = {
   name: string;
   group: string;
   amount: number;
+  assetId?: string;
 };
 
 export type AddAssetResponse = { name: string };

@@ -11,7 +11,12 @@
   </div>
 
   <div class="flex absolute right-5">
-    <button class="btn btn-warning hidden md:block">Delete</button>
+    <button
+      class="btn btn-warning hidden md:block"
+      (click)="deleteAsset(asset.assetId)"
+    >
+      Delete
+    </button>
 
     <button
       class="md:hidden bg-warning-main p-3 transition-all hover:bg-warning-dark hover:shadow-btnWarning rounded-full self-end"

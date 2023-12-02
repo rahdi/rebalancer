@@ -29,6 +29,21 @@ export class Effects {
     )
   );
 
+  deleteAsset$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.deleteAsset),
+      concatLatestFrom(() =>
+        this.store.select(apiAuthSelectors.selectAuthData)
+      ),
+      exhaustMap(([{ assetId }, authData]) =>
+        this.apiCoreService.deleteAsset(assetId, authData!.userId).pipe(
+          map(() => actions.fetchAssets()),
+          catchError((error) => of(actions.errorResponse({ error })))
+        )
+      )
+    )
+  );
+
   fetchAssets$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.fetchAssets),
