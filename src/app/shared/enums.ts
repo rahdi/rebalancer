@@ -13,4 +13,5 @@ export enum Path {
 
 export enum PathParams {
   Name = 'name',
+  AssetId = 'assetId',
 }

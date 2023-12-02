@@ -20,7 +20,7 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: Path.EditAsset,
+    path: `${Path.EditAsset}/:${PathParams.AssetId}`,
     component: EditAssetComponent,
     canActivate: [authGuard],
   },
