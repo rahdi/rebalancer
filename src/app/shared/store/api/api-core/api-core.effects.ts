@@ -29,6 +29,23 @@ export class Effects {
     )
   );
 
+  editAsset$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.editAsset),
+      concatLatestFrom(() =>
+        this.store.select(apiAuthSelectors.selectAuthData)
+      ),
+      exhaustMap(([{ asset }, authData]) =>
+        this.apiCoreService
+          .editAsset(asset, asset.assetId || '', authData!.userId)
+          .pipe(
+            map(() => actions.editAssetSuccess()),
+            catchError((error) => of(actions.errorResponse({ error })))
+          )
+      )
+    )
+  );
+
   deleteAsset$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.deleteAsset),
@@ -59,10 +76,11 @@ export class Effects {
     )
   );
 
+  // TODO: after 'edit asset', redirect to proper asset group
   redirect$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actions.addAssetSuccess),
+        ofType(actions.addAssetSuccess, actions.editAssetSuccess),
         tap(() => this.router.navigate([`/${Path.Dashboard}`]))
       ),
     { dispatch: false }

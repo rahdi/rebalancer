@@ -1,3 +1,7 @@
 <app-content-container header="Edit asset" class="w-full h-full flex">
-  <app-asset-form [edit]="true"></app-asset-form>
+  <app-asset-form
+    *ngIf="currentAsset"
+    [edit]="true"
+    [assetToEdit]="currentAsset"
+  ></app-asset-form>
 </app-content-container>

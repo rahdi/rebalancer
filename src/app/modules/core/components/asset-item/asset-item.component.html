@@ -24,6 +24,7 @@
 
     <button
       class="md:hidden bg-warning-main p-3 transition-all hover:bg-warning-dark hover:shadow-btnWarning rounded-full self-end"
+      (click)="onDelete($event); (false)"
     >
       <app-close-icon color="white" [width]="12" [height]="12"></app-close-icon>
     </button>

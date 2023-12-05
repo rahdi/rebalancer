@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { AddAssetResponse, Asset, FetchAssetsResponse } from './api-core.types';
+import {
+  AddAssetResponse,
+  Asset,
+  EditAssetResponse,
+  FetchAssetsResponse,
+} from './api-core.types';
 import { environment } from '../../../../../environments/environment';
 
 const createPath = (customText: string) =>
@@ -13,6 +18,13 @@ export class ApiCoreService {
 
   addAsset(asset: Asset, userId: string) {
     return this.http.post<AddAssetResponse>(createPath(userId), asset);
+  }
+
+  editAsset(asset: Asset, assetId: string, userId: string) {
+    return this.http.put<EditAssetResponse>(
+      createPath(`${userId}/${assetId}`),
+      asset
+    );
   }
 
   deleteAsset(assetId: string, userId: string) {

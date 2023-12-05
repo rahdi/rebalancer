@@ -76,4 +76,14 @@ export const selectTotalAmountOfOneGroup = createSelector(
   }
 );
 
+export const selectCurrentAsset = createSelector(
+  selectAssets,
+  selectCurrentAssetId,
+  (assets, assetId) => {
+    if (!assetId) return null;
+
+    return (assets || {})[assetId];
+  }
+);
+
 export const selectIsLoading = (state: AppState) => state.apiCore.isLoading;

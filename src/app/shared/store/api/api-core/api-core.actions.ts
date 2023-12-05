@@ -20,6 +20,12 @@ export const addAssetSuccess = createAction(
   props<{ payload: AddAssetSuccessPayload }>()
 );
 
+export const editAsset = createAction(
+  '[API Core] Edit Asset',
+  props<{ asset: Asset }>()
+);
+export const editAssetSuccess = createAction('[API Core] Edit Asset Success');
+
 export const deleteAsset = createAction(
   '[API Core] Delete Asset',
   props<{ assetId: string }>()

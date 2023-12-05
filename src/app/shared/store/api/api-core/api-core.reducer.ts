@@ -3,6 +3,8 @@ import {
   addAsset,
   addAssetSuccess,
   deleteAsset,
+  editAsset,
+  editAssetSuccess,
   errorResponse,
   fetchAssets,
   fetchAssetsSuccess,
@@ -35,6 +37,14 @@ export const reducer = createReducer(
     ...state,
     isLoading: false,
     assets: { ...state.assets, ...payload },
+  })),
+  on(editAsset, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
+  on(editAssetSuccess, (state) => ({
+    ...state,
+    isLoading: false,
   })),
   on(deleteAsset, (state) => ({ ...state, isLoading: true })),
   on(fetchAssets, (state) => ({

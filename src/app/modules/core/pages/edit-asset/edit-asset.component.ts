@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'app.store';
 import { Subscription } from 'rxjs';
-import { PathParams, sharedStore } from 'shared';
+import { Asset, PathParams, sharedStore } from 'shared';
 
 const apiCoreSelectors = sharedStore.selectors.apiCore;
 const apiCoreActions = sharedStore.actions.apiCore;
@@ -14,7 +14,8 @@ const apiCoreActions = sharedStore.actions.apiCore;
 })
 export class EditAssetComponent implements OnInit, OnDestroy {
   assetId = '';
-  assetIdSub$?: Subscription;
+  currentAsset: Asset | null = null;
+  currentAssetSub$?: Subscription;
   params$?: Subscription;
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>) {}
@@ -29,10 +30,11 @@ export class EditAssetComponent implements OnInit, OnDestroy {
         );
     });
 
-    this.assetIdSub$ = this.store
-      .select(apiCoreSelectors.selectCurrentAssetGroup)
-      .subscribe((assetId) => {
-        this.assetId = assetId;
+    this.currentAssetSub$ = this.store
+      .select(apiCoreSelectors.selectCurrentAsset)
+      .subscribe((asset) => {
+        if (!asset) return;
+        this.currentAsset = asset;
       });
 
     // TODO: possible optimization - no need to fetch all assets probably
@@ -41,6 +43,6 @@ export class EditAssetComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.params$?.unsubscribe();
-    this.assetIdSub$?.unsubscribe();
+    this.currentAssetSub$?.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -10,7 +10,8 @@ import {
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'app.store';
-import { Path, sharedStore } from 'shared';
+import { Subscription } from 'rxjs';
+import { Asset, Path, sharedStore } from 'shared';
 
 enum FormFields {
   Name = 'name',
@@ -20,7 +21,7 @@ enum FormFields {
 
 function amountValidator(): ValidatorFn {
   return (control: AbstractControl<string>): ValidationErrors | null => {
-    const value = (control.value || '').replaceAll(',', '.');
+    const value = (String(control.value) || '').replaceAll(',', '.');
 
     if (!value) return { required: true };
 
@@ -32,12 +33,16 @@ function amountValidator(): ValidatorFn {
   };
 }
 
+const apiCoreActions = sharedStore.actions.apiCore;
+const apiCoreSelectors = sharedStore.selectors.apiCore;
+
 @Component({
   selector: 'app-asset-form',
   templateUrl: './asset-form.component.html',
 })
-export class AssetFormComponent {
+export class AssetFormComponent implements OnInit, OnDestroy {
   @Input() edit = false;
+  @Input() assetToEdit?: Asset | null;
   path = Path;
   assetForm = new FormGroup({
     [FormFields.Name]: new FormControl('', {
@@ -53,7 +58,24 @@ export class AssetFormComponent {
       validators: [amountValidator()],
     }),
   });
-  isLoading$ = this.store.select(sharedStore.selectors.apiCore.selectIsLoading);
+  isLoading$ = this.store.select(apiCoreSelectors.selectIsLoading);
+  currentAssetId = '';
+  currentAssetIdSub$?: Subscription;
+
+  ngOnInit(): void {
+    if (!this.assetToEdit) return;
+
+    const { name, group, amount } = this.assetToEdit;
+    this.assetForm.setValue({ name, group, amount });
+
+    this.currentAssetIdSub$ = this.store
+      .select(apiCoreSelectors.selectCurrentAssetId)
+      .subscribe((assetId) => {
+        if (assetId) {
+          this.currentAssetId = assetId;
+        }
+      });
+  }
 
   validateInput(name: FormFields) {
     const control = this.assetForm.get(name);
@@ -89,7 +111,21 @@ export class AssetFormComponent {
       amount: Number(this.assetForm.value[FormFields.Amount] || 0),
     };
 
-    this.store.dispatch(sharedStore.actions.apiCore.addAsset({ asset }));
+    if (!this.edit) {
+      this.store.dispatch(apiCoreActions.addAsset({ asset }));
+    }
+
+    if (this.edit && this.currentAssetId) {
+      this.store.dispatch(
+        apiCoreActions.editAsset({
+          asset: { ...asset, assetId: this.currentAssetId },
+        })
+      );
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.currentAssetIdSub$?.unsubscribe();
   }
 
   constructor(private store: Store<AppState>) {}
