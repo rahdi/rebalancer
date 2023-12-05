@@ -1,0 +1,81 @@
+{
+  "configVersion": 1,
+  "timestamp": 1701804610456,
+  "index": "C:/Program Files/Git/rebalancer/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "C:/Program Files/Git/rebalancer/favicon.ico",
+        "C:/Program Files/Git/rebalancer/index.html",
+        "C:/Program Files/Git/rebalancer/main.fc07934b3f7c155f.js",
+        "C:/Program Files/Git/rebalancer/manifest.webmanifest",
+        "C:/Program Files/Git/rebalancer/polyfills.b9a3d81b7b6269fe.js",
+        "C:/Program Files/Git/rebalancer/runtime.6bbf66bd8af9b19f.js",
+        "C:/Program Files/Git/rebalancer/styles.7fe035a9a609972a.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "C:/Program Files/Git/rebalancer/assets/icons/icon-128x128.png",
+        "C:/Program Files/Git/rebalancer/assets/icons/icon-144x144.png",
+        "C:/Program Files/Git/rebalancer/assets/icons/icon-152x152.png",
+        "C:/Program Files/Git/rebalancer/assets/icons/icon-192x192.png",
+        "C:/Program Files/Git/rebalancer/assets/icons/icon-384x384.png",
+        "C:/Program Files/Git/rebalancer/assets/icons/icon-512x512.png",
+        "C:/Program Files/Git/rebalancer/assets/icons/icon-72x72.png",
+        "C:/Program Files/Git/rebalancer/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "C:/Program Files/Git/rebalancer/assets/icons/icon-128x128.png": "0468d2a8807f0206fe45a408de3136349cca2e82",
+    "C:/Program Files/Git/rebalancer/assets/icons/icon-144x144.png": "9102d1648bc2c900c7213b2a860b83f2e15127e3",
+    "C:/Program Files/Git/rebalancer/assets/icons/icon-152x152.png": "348f89329fba092a70e7ecaf20bf83a12f758c9d",
+    "C:/Program Files/Git/rebalancer/assets/icons/icon-192x192.png": "bfd1951dfef33a0316a7317be971a248b4bf66cf",
+    "C:/Program Files/Git/rebalancer/assets/icons/icon-384x384.png": "4ed1796cffcc196ee25b107aa92336319978cac6",
+    "C:/Program Files/Git/rebalancer/assets/icons/icon-512x512.png": "60c9adb8a216d68df1285ee9490b133bbe0af6dc",
+    "C:/Program Files/Git/rebalancer/assets/icons/icon-72x72.png": "4445114b01b412760f963fe9014ee4a1debaef5a",
+    "C:/Program Files/Git/rebalancer/assets/icons/icon-96x96.png": "ad202bf8631861164527b6b519d89dd82eaa8066",
+    "C:/Program Files/Git/rebalancer/favicon.ico": "38ca12e6283298a29c6e6f640277f56c6ae0e6bc",
+    "C:/Program Files/Git/rebalancer/index.html": "b0fadab63dc3300a841f359c130372e427dcb593",
+    "C:/Program Files/Git/rebalancer/main.fc07934b3f7c155f.js": "e0d6bab5545b17e67c2c7e013fe247791a4305e6",
+    "C:/Program Files/Git/rebalancer/manifest.webmanifest": "0e3dc37ec84310591e29eea33c8fd8eb8f680189",
+    "C:/Program Files/Git/rebalancer/polyfills.b9a3d81b7b6269fe.js": "5d889efc171a31a12468595daf233366c15a2b2a",
+    "C:/Program Files/Git/rebalancer/runtime.6bbf66bd8af9b19f.js": "a64a8dc45376976c1f82231b53e223c883af06c0",
+    "C:/Program Files/Git/rebalancer/styles.7fe035a9a609972a.css": "3c4c5e7dafc1ac8336835f9c22a802a7ac09bf83"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
